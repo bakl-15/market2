@@ -1,0 +1,190 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Panier!{% endblock %}
+ {% block style %}
+    <style>
+	    .rating{
+			color: orange ;
+		}
+	</style>
+ {% endblock %}
+{% block body %}
+<div class="breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-inner">
+			<ul class="list-inline list-unstyled">
+
+				<li><a href="{{path('home')}}">Accueil</a></li>
+            
+				<li> <a  href="">Panier</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="body-content outer-top-xs">
+	<div class="container">
+		<div class="row ">
+			<div class="shopping-cart">
+				<div class="shopping-cart-table ">
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="cart-romove item">Supprimer</th>
+					<th class="cart-description item">Image</th>
+					<th class="cart-product-name item">Produits</th>
+				
+					<th class="cart-qty item">Quantité</th>
+					<th class="cart-sub-total item">Prix</th>
+					<th class="cart-total last-item">Prix total</th>
+				</tr>
+			</thead><!-- /thead -->
+		
+			<tbody>
+			{% if cart %}
+            {% for element in cart.products  %}
+		
+                <tr>
+					<td class="romove-item"><a href="{{ path('cart_delete_all' , {'id': element.product.id})}}" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a></td>
+					<td class="cart-image">
+                    {% for image in element.product.images %}
+                          {% if loop.first %}  
+                                <a class="entry-thumbnail" href="{{ path('product_show', {'id': element.product.id}) }}">
+                                    <img src="{{asset('uploads/images/')}}{{ image.url }}" alt="{{ image.caption }}">
+						       </a>
+                          {% endif %}
+                    {% endfor %}
+						
+					</td>
+					<td class="cart-product-name-info">
+						<h4 class='cart-product-description'><a href="{{path('product_show', { 'id' : element.product.id})}}">{{element.product.name}}</a></h4>
+						<div class="row">
+						
+							<div class="col-sm-8">
+								<div class="reviews">
+								    {{ include('partials/rating.html.twig', {rating : element.product.getAvgRating})}}
+                                     <br>
+									({{element.product.comments|length}} commentaires)
+								</div>
+							</div>
+						</div><!-- /.row -->
+						<div class="cart-product-info">
+							<span class="product-color">Quantité:<span>{{element.product.quantity}} en stock</span></span>
+						</div>
+					</td>
+				
+					<td class="cart-product-quantity">
+						<div class="quant-input">
+						 <div class="arrows p-2">
+						        {% if element.quantity < element.product.quantity %}
+								     <div class="arrow plus gradient"><a href="{{ path('cart_add',{'id' : element.product.id })}}" class="ir"><i class="fas fa-chevron-up"></i></a></div>
+								{% endif %}
+				                     <div class="arrow minus gradient"><a href="{{ path('cart_delete',{'id' : element.product.id })}}" class="ir"><i class="fas fa-chevron-down"></i></a></div>
+				                </div>
+				                <input type="text" value="{{ element.quantity }}">
+			             </div>
+		            </td>
+					<td class="cart-product-sub-total"><span class="cart-sub-total-price">{{element.product.price | number_format(2)}} &euro;</span></td>
+					<td class="cart-product-grand-total"><span class="cart-grand-total-price"><strong>{{element.subtotal | number_format(2)}} &euro; </strong></span></td>
+				</tr>
+                {% else %}
+				<tr>
+				   <td>Votre panier est vide! <br> Veuillez rajouter des produits <a href="{{path('product-filter')}}"> Revenir à la boutique</a></td>
+			     
+				</tr>
+            {% endfor %}
+				
+			{% endif %}
+			</tbody><!-- /tbody -->
+		</table><!-- /table -->
+	</div>
+</div><!-- /.shopping-cart-table -->			
+	<div class="col-md-4 col-sm-12 estimate-ship-tax">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					<span class="estimate-title">Action</span>
+				   <p>-</p>
+				</th>
+			</tr>
+		</thead><!-- /thead -->
+		<tbody>
+		    <tr>
+			  <td>
+			      <a href="{{path('product')}}" class="btn btn-upper btn-primary">Continuer vos achats</a>			
+			  </td>
+		    </tr>
+			 <tr>
+			  <td> 
+			        <a href="#" class="btn btn-upper btn-primary">mettre à jour le panier</a>
+			  </td>
+		    </tr>
+		</tbody>
+	
+	</table>
+</div><!-- /.estimate-ship-tax -->
+
+<div class="col-md-4 col-sm-12 estimate-ship-tax">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					<span class="estimate-title">Code de réduction</span>
+					<p>Entrez votre code promo si vous en avez un. </p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+				<tr>
+					<td>
+						<div class="form-group">
+							<input type="text" class="form-control unicase-form-control text-input" placeholder="Votre Coupon..">
+						</div>
+						<div class="clearfix pull-right">
+							<button type="submit" class="btn-upper btn btn-primary">APPLIQUER LE COUPON</button>
+						</div>
+					</td>
+				</tr>
+		</tbody><!-- /tbody -->
+	</table><!-- /table -->
+</div><!-- /.estimate-ship-tax -->
+
+<div class="col-md-4 col-sm-12 cart-shopping-total">
+	<table class="table">
+	{% set el =  app.session.get('cartData') %}
+		<thead>
+			<tr>
+				<th>
+				{% if el %}
+					<div class="cart-sub-total">
+						Montant en HT <span class="inner-left-md">{{ el.data_cart.amountHT |number_format(2)}} &euro; </span>
+					</div>
+					<div class="cart-grand-total">
+						Taxe (20%)<span class="inner-left-md">{{  el.data_cart.taxe |number_format(2)}} &euro;</span>
+					</div>
+					<div class="cart-grand-total">
+						Montant en TTC <span class="inner-left-md">{{ el.data_cart.amountTTC |number_format(2)}} &euro; </span>
+					</div>
+					{% endif %}
+				</th>
+			</tr>
+		</thead><!-- /thead -->
+		<tbody>
+				<tr>
+					<td>
+						<div class="cart-checkout-btn pull-right">
+							<a href="{{path('checkout_confirm')}}" class="btn btn-primary checkout-btn">ACHETER</a>
+							
+						</div>
+					</td>
+				</tr>
+		</tbody><!-- /tbody -->
+	</table><!-- /table -->
+</div><!-- /.cart-shopping-total -->			</div><!-- /.shopping-cart -->
+		</div> <!-- /.row -->
+		<!-- ============================================== BRANDS CAROUSEL ============================================== -->
+
+<!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
+</div><!-- /.body-content -->
+{% endblock %}

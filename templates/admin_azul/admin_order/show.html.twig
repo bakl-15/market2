@@ -1,0 +1,443 @@
+{% extends 'admin_azul/layout.html.twig' %}
+
+{% block title %}Order{% endblock %}
+
+{% block body %}
+    <div class="main-content">
+
+                <div class="page-content">
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-sm-0 font-size-18">Détail de la commande</h4>
+
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                            <li class="breadcrumb-item active">Commande</li>
+                                        </ol>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-xl-4">
+                                <div class="card overflow-hidden">
+                                    <div class="bg-primary bg-soft">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <div class="text-white p-3">
+                                                    <h5 class="text-white">Commande N°</h5>
+                                                    <p>{{order.reference}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-2 align-self-end">
+                                                <i class="fa fa-4x fa-file-invoice-dollar text-white mb-2"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="row mt-2"> 
+                                             <h3> CLIENT</h3>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="avatar-md profile-user-wid mb-4">
+                                                    
+                                                    {% if user.coverImage %} 
+                                                         <img src="{{asset('uploads/avatars' ~ user.coverImage)}}" alt="" class="img-thumbnail rounded-circle">
+                                                           {% else %}
+                                                          <img class="rounded-circle header-profile-user" src="{{ asset('uploads/images/user/avatar-user.jpg')}}" alt="Header Avatar">
+                                                     {% endif %}
+                                                </div>
+                                                <h5 class="font-size-15 text-truncate">{{user.fullname}}</h5>
+                                                <p class="text-muted mb-0 text-truncate">Cliquer ici pour voir</p>
+                                            </div>
+
+                                            <div class="col-sm-8">
+                                                <div class="pt-4">
+                                                   
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                        <p class="text-muted mb-2 text-center">Commandes</p>
+                                                            <h5 class="font-size-15 text-center"> {{user.orders|length}}</h5>
+                                                            
+                                                        </div>
+                                                        <div class="col-6">
+                                                           <p class="text-muted mb-2 text-center">Commentaires</p>
+                                                           <h5 class="font-size-15 mb-0 text-center">{{user.comments|length}}</h5>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-4">
+                                                        <a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm"> Profil <i class="mdi mdi-arrow-right ms-1"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card -->
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4"> Informations personnels</h4>
+
+                                    <div class="table-responsive">
+                                            <table class="table table-nowrap mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Nom/Prénom :</th>
+                                                        <td>{{user.fullname}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Pseudoname :</th>
+                                                        <td>{{user.username}}</td>
+                                                    </tr>
+                                                   
+                                                  
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card -->
+                                 <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4"> Contact</h4>
+
+                                    <div class="table-responsive">
+                                            <table class="table table-nowrap mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">email :</th>
+                                                        <td>{{user.email}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Télephone :</th>
+                                                        <td>{{order.delevryPhone}}</td>
+                                                    </tr>
+                                                   
+                                                  
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card -->
+                                 <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4"> Transporteur</h4>
+
+                                    <div class="table-responsive">
+                                            <table class="table table-nowrap mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Livreur :</th>
+                                                        <td>{{order.carrierName}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Prix de la livraison :</th>
+                                                        <td>{{(order.carrierPrice * 100)|number_format(2) }} &euro;</td>
+                                                    </tr>
+                                                   
+                                                  
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card -->
+                                     <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4"> Informations</h4>
+
+                                    <div class="table-responsive">
+                                            <table class="table table-nowrap mb-0">
+                                                <tbody>
+                                                   
+                                                    <tr>
+                                                      
+                                                        <td>{{order.moreInformation  }}</td>
+                                                    </tr>
+                                                   
+                                                  
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card -->
+                                 <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4"> Adresse de la livraison</h4>
+
+                                    <div class="table-responsive">
+                                            <table class="table table-nowrap mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Adresse :</th>
+                                                        <td>{{order.DelevryAddress|replace({'[strong]' : '<strong>'})|replace({'[/strong]' : '</strong>'})|raw}}</td>
+                                                    </tr>
+                                                
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-5">Les actions</h4>
+                                        {% if( order.isPaid == true) %}
+                                        <div class="">
+                                            <ul class="verti-timeline list-unstyled">
+                                                <li class="event-list active">
+                                                    <div class="event-timeline-dot">
+                                                        <i class="bx bx-right-arrow-circle bx-fade-right"></i>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                       
+                                                        <div class="flex-grow-1">
+                                                           
+                                                                <div class="font-size-15 btn btn-light text-primary"><a href="javascript: void(0);" class="text-dark"><i class="fas fa-id-card"></i> Contacter le client</a></div>
+                                                  
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="event-list">
+                                                    <div class="event-timeline-dot">
+                                                        <i class="bx bx-right-arrow-circle"></i>
+                                                    </div>
+                                                    <div class="d-flex">
+                                            
+                                                        <div class="flex-grow-1">
+                                                            <div>
+                                                               {% if order.status == 'En cours de préparation' %}
+                                                                 <div class="font-size-15 btn btn-light text-primary"><a href="{{path('admin_order_shipped', {'id' : order.id})}}" class="text-dark"><i class="fas fa-truck-moving"></i> Livrer la commande</a></div>
+                                                               {% elseif order.status == 'Livraison en cours' %}
+                                                                   <div class="font-size-15 btn btn-light text-primary"><a href="{{path('admin_order_shippedfinal', {'id' : order.id})}}" class="text-dark"><i class="fas fa-truck-moving"></i> Commande livrée</a></div>
+                                                               {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                               
+                                            </ul>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>  
+                                <!-- end card -->
+                            </div>         
+                            
+                            <div class="col-xl-8">
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="card mini-stats-wid">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="flex-grow-1">
+                                                        <p class="text-muted fw-medium mb-2">Statut du paiement</p>
+                                                        <h4 class="mb-0">
+                                                            {% if order.isPaid %}
+                                                              <div class="badge bg-success"> Payé</div>
+                                                            {% endif %}
+                                                        </h4>
+                                                    </div>
+        
+                                                    <div class="flex-shrink-0 align-self-center">
+                                                        <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                                                            <span class="avatar-title">
+                                                                <i class="bx bx-check-circle font-size-24"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card mini-stats-wid">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="flex-grow-1">
+                                                        <p class="text-muted fw-medium mb-2">Mode de paiement</p>
+                                                        <h5 class="mb-0"><i class="fab fa-cc-mastercard me-1"></i> Mastercard</h4>
+                                                    </div>
+        
+                                                    <div class="flex-shrink-0 align-self-center">
+                                                        <div class="avatar-sm mini-stat-icon rounded-circle bg-primary">
+                                                            <span class="avatar-title">
+                                                                <i class="bx bx-hourglass font-size-24"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card mini-stats-wid">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="flex-grow-1">
+                                                        <p class="text-muted fw-medium mb-2">Montant</p>
+                                                        <h4 class="mb-0">{{order.subTotalTTC | number_format(2) + (order.carrierPrice * 100)|number_format(2)}} &euro;</h4>
+                                                    </div>
+        
+                                                    <div class="flex-shrink-0 align-self-center">
+                                                        <div class="avatar-sm mini-stat-icon rounded-circle bg-primary">
+                                                            <span class="avatar-title">
+                                                                <i class="bx bx-package font-size-24"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                   <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                             <div class="col-md-4">
+                                                 <h4 class="mb-4 fx-4">Date: <strong>{{order.createdAt|date('d/m/Y')}}</strong></h4>
+                                              
+                                            </div>
+                                            <div class="col-md-4">
+                                                 <h3 class="mb-4"> Etat: <strong class=
+                                                                                       {% if order.status == "Commande livrée" %}
+                                                                                       "badge bg-success"
+                                                                                        {% elseif  order.status == "Annulé" %}
+                                                                                        "badge bg-danger"
+                                                                                         {% elseif  order.status == "En cours de préparation" %}
+                                                                                        "badge bg-warning"
+                                                                                         {% elseif  order.status == "Livraison en cours" %}
+                                                                                        "badge bg-primary"
+                                                                                       {% endif %}
+                                                                                       >{{order.status}}</strong></h3>
+                                            </div>
+                                             <div class="col-md-4">
+                                                 <h3 class="mb-4"> TVA :
+                                                     <strong class="badge bg-warning">
+                                                         {% if order.taxe > 0  %}
+                                                            (20%) Applicable
+                                                          {% else %}
+                                                             n'est pas applicable
+                                                         {% endif %}
+                                                     </strong>
+                                                 </h3>
+                                       
+                                            </div>
+                                       </div>
+                                    </div>
+                                </div>
+                      
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4">Récapitulatif</h4>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-nowrap table-hover mb-">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Image</th>
+                                                        <th scope="col">Produit</th>
+                                                        <th scope="col">Quantité</th>
+                                                        <th scope="col">Prix</th>
+                                                        <th scope="col">Montant (HT)</th>
+                                                        <th scope="col">Taxe</th>
+                                                        <th scope="col">Montant (TTC)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for od in order.orderDetails %}
+                                                    <tr>
+                                                        <th scope="row">
+                                                       
+                                                           <div class="image"><img  src="{{asset('uploads/images/')}}{{ od.productUrl }}" width="65px"></a> </div>
+                                                        
+                                                        </th class="mt-2">
+                                                        <td>{{od.productName}}</td>
+                                                        <td>{{od.quantity}}</td>
+                                                        <td>{{od.productPrice * 100}}</td>
+                                                        <td>{{od.SubTotalHT * 100}}</td>
+                                                        <td>{{od.taxe * 100}}</td>
+                                                        <td>{{od.SubTotalTTC * 100}}</td>
+                                                    </tr>
+                                                     {% endfor %}
+                                                     <hr>
+
+                                                    <tr>
+                                                        <th scope="row" colspan="6">Montant total en HT</th>
+                                                        <td>{{order.subTotalHT}}</td>
+                    
+                                                    </tr>
+                                                     <tr>
+                                                        <th scope="row text-center bg-light" colspan="6">Taxe</th>
+                                                     
+                                                        <td>{{order.taxe}}</td>
+                                                      
+                                                    </tr>
+                                                     <tr>
+                                                        <th scope="row text-center bg-light" colspan="6">Montant total en TTC</th>
+                                                
+                                                        <td>{{order.subTotalTTC}}</td>
+                                                    </tr>
+                                                     <tr>
+                                                        <th scope="row text-center bg-light" colspan="6">Prix transport</th>
+                        
+                                                        <td>{{(order.carrierPrice * 100)|number_format(2)}}</td>
+                                                       
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row text-center bg-light" colspan="6">Montant à payer</th>
+                        
+                                                        <td><strong>{{(order.carrierPrice * 100)|number_format(2) + order.subTotalTTC }} &euro;</strong></td>
+                                                       
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                          <div class="card">
+                                    <div class="card-body">
+                                       
+                                            
+                                        
+                                        <div id="revenue-chart" class="row" dir="ltr">
+                                            <div class="col-md-5">
+                                                <a href="{{path('admin_order_index')}}" class="btn btn-primary">  Retourner à la liste </a>
+                                            </div>
+                                            <div class="col-md-3">
+                                                  <a href="" class="btn btn-primary"> <i class="fas fa-truck-moving"></i> Livrer la commande</a>
+                                            </div>
+                                             <div class="col-md-2">
+                                                  <a href="" class="btn btn-primary"> <i class="far fa-edit"></i> Modifier</a>
+                                            </div>
+                                             <div class="col-md-2">
+                                                 <a href="" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                            </div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                    </div> <!-- container-fluid -->
+                </div>
+                <!-- End Page-content -->
+
+{% endblock %}

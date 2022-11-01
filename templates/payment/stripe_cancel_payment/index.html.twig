@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Paiment echoué !{% endblock %}
+{% block style %}
+     <style>
+     .paiment-content{
+         margin-bottom:100px;
+         margin-top:100px;
+         padding:5px;
+         border: solid 3px red;
+         border-radius:50%;
+         background-color: white;
+     }
+     #checkmark{
+         font-size:85px;
+         color:red;
+     }
+     </style>
+{% endblock %}
+{% block body %}
+
+ 	 <div class="container paiment-content">
+	<div class="row text-center">
+        <div class="col-sm-6 col-sm-offset-3">
+        <br><br> <h2 style="color:red">ECHEC DE PAIEMENT!</h2>
+       
+       <i class="fas fa-exclamation-triangle "  id="checkmark"></i>
+        <h3>Nous sommes desolé, <strong> {{order.user.fullname}} </strong>, le paiement a été echoué ! </h3>
+        <p style="font-size:20px;color:#5C5C5C;">Le paiment de la commande N° <strong>{{order.reference}}</strong> n'a pas pu été validé.</p>
+         <div class="mb-5 pb-5">  Veuillez reéssayer. </div>
+        <a href="{{path('home')}}" class="btn btn-danger">     Revenir à l'accueil      </a>
+         <a href="{{path('product')}}" class="btn btn-danger">     Continuer vos achats      </a>
+    <br><br>
+        </div>
+        
+	</div>
+</div>
+
+
+{% endblock %}

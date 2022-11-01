@@ -1,0 +1,170 @@
+
+{% extends 'admin_azul/layout.html.twig' %}
+{% block title %}Administration de la page d'accueil{% endblock %}
+{% block style %}
+     <!-- DataTables -->
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css">
+         <link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css">
+{% endblock %}
+
+
+
+    {# -------------------------------------- #}
+ 
+{% block body %}
+
+    
+        <div class="main-content">
+          
+                <div class="page-content">
+                    <div class="container p-2">
+
+                        <!-- start page title -->
+                        <div class="row">
+                         {{ include('partials/flash.html.twig')}}
+                            <div class="col-12">
+                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-sm-0 font-size-18">Liste des associations</h4>
+
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                            <li class="breadcrumb-item active">Association</li>
+                                        </ol>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+        
+                                        <h4 class="card-title">Association</h4>
+                                      
+                                          <div class="text-sm-end">
+                                                    <a href="{{ path('admin_azul_settings_home_association_new') }}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2"><i class="fa fa-plus me-1"></i> Ajouter une association</a>
+                                         </div>
+ 
+                                    <div>
+                                        <table 
+                                               class="table table-bordered dt-responsive table-striped table-nowrap w-100"
+                                              data-toggle="table"
+                                              id="table" 
+                                              data-show-refresh="true"
+											  data-show-toggle="true"
+											  data-show-fullscreen="true"
+											  data-show-columns="true"
+											  data-show-columns-toggle-all="true"
+                                              data-search="true"
+                                              data-filter-control="true" 
+                                              data-pagination="true"
+                                              data-show-columns="true"
+                                              data-click-to-select="true"
+                                              data-show-export="true"
+                                              data-detail-view="true"
+                                              data-page-list="[10, 25, 50, 75, 100]"
+                                              data-page-number="45"
+                                             
+                                               >
+                                         
+                                            <thead>
+                                                    <tr class="bg-primary text-white text-center">
+                                                        <th>#</th>
+                                                         <th>
+                                                            image
+                                                        </th>
+                                                        
+                                                        <th data-field="title" data-filter-control="select" data-sortable="true">
+                                                           libelé
+                                                        </th>
+                                                       
+                                                        <th data-field="action">Action</th>
+                                                    </tr>
+                                            
+                                            </thead>
+        
+        
+                                            <tbody>
+                                                      
+                                                  {% for association in associations %}
+                                                        <td>{{association.id }}</td>
+                                                       
+                                                        <td class="text-center">
+                                                                 {% if association.image %} 
+                                                                     <img class="rounded-circle header-profile-user" src="{{asset('uploads/category/' ~ association.image)}}" alt="Header Avatar">
+                                                              
+                                                                 {% else %}
+                                                                     <img class="rounded-circle header-profile-user" src="{{ asset('uploads/category/categorie.jpg')}}" alt="Header Avatar">
+                                                                 {% endif %}
+                                                            
+                                                        </td>
+                                                        
+                                                        <td>{{ association.labele }}</td>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                {% set actionPath = 'admin_azul_settings_home_association_' %}
+                                                                {% set actionVars = { id: association.id } %}
+                                                                {% set action = ['update', 'delete'] %}
+                                                                {{ include('./partials/_actions.html.twig', { actionPath: actionPath, actionVars: actionVars, action: action, object: association }) }}
+                                                    
+                                                
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    {# ----------------------------------------- #}
+                                                    
+                                                     {# --------------------------- #}
+                                                  {% else %}
+                                                    <tr>
+                                                        <td colspan="10">Aucun résultat</td>
+                                                    </tr>
+
+                                                   
+                                                    
+                                                 {% endfor %}
+                                                 
+                                            </tbody>
+                                        </table>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </div> <!-- end row -->
+        
+                       
+
+                    </div> <!-- container-fluid -->
+                </div>
+            {# ------------------------------------------------- #}
+              
+            </div>
+            <!-- end main content-->
+
+
+
+{% endblock %}
+ {% block javascript %}
+     
+       <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
+        <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/locale/bootstrap-table-fr-FR.min.js"></script>
+        <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
+     <script type="text/javascript">
+        $(function(){
+                    $(".bootstrap-table-filter-control-title").select2()
+                    $(".bootstrap-table-filter-control-content").select2()
+                    $(".bootstrap-table-filter-control-date").select2()
+         })
+      
+
+
+     </script>
+      
+    {# --------------------------------------- #}
+{% endblock %}

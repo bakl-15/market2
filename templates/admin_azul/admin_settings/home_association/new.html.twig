@@ -1,0 +1,42 @@
+
+{% extends 'admin_azul/layout.html.twig' %}
+
+{% block title %}Noveau blog à découvrir{% endblock %}
+
+
+
+{% block body %}
+
+ <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
+
+                <div class="page-content">
+                    <div class="container bg-light p-2">
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                 <h1 class="text-center text-primary">Créer une association</h1>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                       {{ include('admin_azul/admin_settings/home_association/_form.html.twig') }}
+                                        <div class="mt-5">
+                                            <a href="{{ path('admin_azul_settings_home_association_index') }}"> Retour à la liste  </a>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                    </div> <!-- container-fluid -->
+                </div>
+                <!-- End Page-content -->
+{% endblock %}

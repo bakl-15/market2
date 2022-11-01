@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}	Mes commandes {% endblock %}
+{% block style %}
+    
+{% endblock %}
+{% block body %}
+  <div class="breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-inner">
+			<ul class="list-inline list-unstyled">
+				<li><a href="home.html">ACCUEIL</a></li>
+				<li class='active'>MES COMMANDES</li>
+			</ul>
+		</div><!-- /.breadcrumb-inner -->
+	</div><!-- /.container -->
+</div><!-- /.breadcrumb -->
+
+       <div class="body-content outer-top-xs" id="top-banner-and-menu">
+           <div class="container">
+                <div class="row">
+		            <div class="col-xs-12 col-sm-12 col-md-3 sidebar">
+                        {% include "./partials/sidebar.html.twig" %}
+                    </div>
+                       <div class="col-xs-12 col-sm-12 col-md-9">
+                        <div class="terms-conditions-page">
+                        {% include './partials/flash.html.twig'%}
+                           <div class="row">
+                              <div class="col-md-12 bg-primary">
+                                <h3 class="mb-5"> Mes commandes </h3>
+                              </div>
+                           </div>
+                              <hr>
+                    <div class="row">
+                        {{ include('partials/flash.html.twig')}}
+                         
+                            <div class="col-md-12 p-4">
+                                        <table 
+                                              class="table-striped" 
+                                              data-toggle="table"
+                                              id="table" 
+                                         >
+                                            <thead>
+                                                    <tr  class="bg-primary">
+                                                       
+                                                        <th class="text-center">Réference</th>
+                                                        <th class="text-center" >Date d'achat</th>
+                                                       
+                                                        <th class="text-center" >Montant de la commande</th>
+                                                        <th class="text-center" class="text-center">actions</th>
+                                                    </tr>
+                                            
+                                            </thead>
+        
+        
+                                            <tbody>
+                                                         {% for order in orders %}
+                                                        <tr>
+                                                            <td class="text-center">com-{{order.reference }}</td>
+                                                          
+                                                            <td class="text-center">{{ order.createdAt |date('d/m/Y') }}</td>
+                                                           
+															 <td class="text-center"> <strong>{{order.subTotalTTC}} &euro; </strong> pour <strong>{{order.quantity}} Qte </strong></td>
+                                                            <td class="text-center">
+                                                                <div class="text-center">
+                                                                        <a class="btn btn-primary" href="{{path('account_order_show', {'id' : order.id})}}"> <i class="far fa-eye"></i> VOIR DETAIL</a>
+                                                               </div>
+                                                            </td>
+                                                        </tr>
+                                                            {% else %}
+                                                                <tr
+                                                                    <td colspan="5">Vous n'avez aucune commande à afficher</td>
+                                                                </tr>
+                                                            {% endfor %}   
+                                               
+                                            </tbody>
+                                        </table>
+                                         
+                                 
+                            </div> <!-- end col -->
+                      
+                        </div> <!-- end row -->
+                               <hr>
+                          
+                            
+                            <div class="d-flex justify-content-center">
+                        
+                                {% do orders.setPageRange(2) %}
+                                {{ knp_pagination_render(orders,'partials/pagination.html.twig') }}
+                            
+                            </div> 
+                        </div>
+                       
+                    </div>
+
+            
+     </div>
+                         
+        </div>
+          {# ----------------------------------------------------------------------- #}
+             
+{% endblock %}
+
+  {% block script %}
+       
+   {% endblock %}

@@ -1,0 +1,69 @@
+{{ form_start(form) }}
+
+ <div class="row mt-3">  
+      <div class="col-md-6 form-group">
+        {{ form_label(form.reference) }}
+        {{ form_widget(form.reference) }}
+        {{ form_errors(form.reference) }}
+    </div>
+    <div class="col-md-6 form-group">
+           {{ form_label(form.fullname) }}
+           {{ form_widget(form.fullname) }}
+           {{ form_errors(form.fullname) }}
+    </div>
+ </div>
+  <div class="row mt-3">  
+      <div class="col-md-6 form-group">
+        {{ form_label(form.carrierName) }}
+        {{ form_widget(form.carrierName) }}
+        {{ form_errors(form.carrierName) }}
+    </div>
+    <div class="col-md-6 form-group">
+           {{ form_label(form.carrierPrice) }}
+           {{ form_widget(form.carrierPrice) }}
+           {{ form_errors(form.carrierPrice) }}
+    </div>
+ </div>
+ <div class="row form-group mt-3">
+        {{ form_label(form.delevryAddress) }}
+        {{ form_widget(form.delevryAddress) }}
+        {{ form_errors(form.delevryAddress) }}
+ </div>
+  <div class="row form-group mt-3">
+        {{ form_label(form.moreInformation) }}
+        {{ form_widget(form.moreInformation) }}
+        {{ form_errors(form.moreInformation) }}
+ </div>
+ <div class="form-group row mt-3">
+        {{ form_label(form.isPaid) }}
+        {{ form_widget(form.isPaid) }}
+        {{ form_errors(form.isPaid) }}
+ </div>
+ <div class="row mt-5">  
+      <div class="col-md-3 form-group">
+        {{ form_label(form.quantity) }}
+        {{ form_widget(form.quantity) }}
+        {{ form_errors(form.quantity) }}
+    </div>
+    <div class="col-md-3 form-group mt-3">
+           {{ form_label(form.subTotalHT) }}
+           {{ form_widget(form.subTotalHT) }}
+           {{ form_errors(form.subTotalHT) }}
+    </div>
+    <div class="col-md-3 form-group mt-3">
+           {{ form_label(form.taxe) }}
+           {{ form_widget(form.taxe) }}
+           {{ form_errors(form.taxe) }}
+    </div>
+    <div class="col-md-3 form-group mt-3">
+           {{ form_label(form.subTotalTTC) }}
+           {{ form_widget(form.subTotalTTC) }}
+           {{ form_errors(form.subTotalTTC) }}
+    </div>
+ </div>
+   
+   
+  <div class="form-group mt-1">
+     <button type="submit" class="btn btn-primary btn-block"> <i class="fa fa-user-plus" aria-hidden="true"></i> Valider</button>
+  </div>
+{{ form_end(form) }}

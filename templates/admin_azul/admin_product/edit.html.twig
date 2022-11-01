@@ -1,0 +1,39 @@
+{% extends 'admin_azul/layout.html.twig' %}
+{% form_theme form 'admin_azul/admin_product/_collection.html.twig' %} 
+{% block title %}New Product{% endblock %}
+
+{% block body %}
+            <div class="main-content">
+
+                <div class="page-content">
+                    <div class="container bg-light p-3">
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                 <h1 class="text-center text-primary">Créer un nouveau produit</h1>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                       {{ include('admin_azul/admin_product/_form.html.twig') }}
+                                        <div class="mt-5">
+                                            
+                                            <a href="{{ path('admin_product_index') }}">Retourner à la liste des produits</a>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                    </div> <!-- container-fluid -->
+                </div>
+                <!-- End Page-content -->
+    
+                               
+                     
+{% endblock %}

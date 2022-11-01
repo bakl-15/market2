@@ -1,0 +1,21 @@
+
+
+<div class="breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-inner">
+			<ul class="list-inline list-unstyled">
+
+				<li><a href="#">Accueil</a></li>
+                {% for key, ele in data %}
+				<li {% if loop.last %} class='active' {% endif %}> <a  href="{{key}}">{{ele}}</a></li>
+
+				<li><a href="#">Accueil/</a></li>
+				{% endfor %}
+                {% for ele in data %}
+				<li> {% if loop.last %}class='active' {% endif %}>{{ele}}</li>
+
+                 {% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>

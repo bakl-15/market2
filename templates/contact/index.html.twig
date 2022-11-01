@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact!{% endblock %}
+{% block style %}
+   <style>
+      .color-1{
+		  color: red;
+	  }
+   </style>
+{% endblock %}
+{% block body %}
+
+
+<div class="example-wrapper">
+     <div class="breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-inner">
+			<ul class="list-inline list-unstyled">
+				<li><a href="home.html">Home</a></li>
+				<li class='active'>Contact</li>
+			</ul>
+		</div><!-- /.breadcrumb-inner -->
+	</div><!-- /.container -->
+</div><!-- /.breadcrumb -->
+  
+<div class="body-content">
+	<div class="container">
+		<div class="checkout-box faq-page">
+			<div class="row">
+				<div class="col-md-12">
+					<h2 class="heading-title">Comment Nous Contacter</h2>
+					<span class="title-tag"><small>Vous pou vez également nous contacter, depuis votre espace client, disponible 7j/7 et 24h/24</small></span>
+					<div class="panel-group checkout-steps" id="accordion">
+						<!-- checkout-step-01  -->
+<div class="panel panel-default checkout-step-01">
+ {{ include('partials/flash.html.twig')}}
+	<!-- panel-heading -->
+		<div class="panel-heading">
+    	<h4 class="unicase-checkout-title">
+	        <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
+	          <span>1</span>Espace contact
+	        </a>
+	     </h4>
+    </div>
+    <!-- panel-heading -->
+
+	<div id="collapseOne" class="panel-collapse collapse in">
+
+		<!-- panel-body  -->
+	    <div class="panel-body">
+	   
+          {{include('contact/_form.html.twig')}}
+    
+        </div>
+		<!-- panel-body  -->
+
+	</div><!-- row -->
+</div>
+<!-- checkout-step-01  -->
+					    <!-- checkout-step-02  -->
+					  	<div class="panel panel-default checkout-step-02">
+						    <div class="panel-heading">
+						      <h4 class="unicase-checkout-title">
+						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseTwo">
+						          <span>2</span>Par courrier	
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapseTwo" class="panel-collapse collapse">
+						      <div class="panel-body">
+						      </div>
+						    </div>
+					  	</div>
+					  	<!-- checkout-step-02  -->
+
+						<!-- checkout-step-03  -->
+					  	<div class="panel panel-default checkout-step-03">
+						    <div class="panel-heading">
+						      <h4 class="unicase-checkout-title">
+						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseThree">
+						       		<span>3</span>Par email
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapseThree" class="panel-collapse collapse">
+						      <div class="panel-body">
+						    </div>
+						    </div>
+					  	</div>
+					  	<!-- checkout-step-03  -->
+
+						
+					  	
+					</div><!-- /.checkout-steps -->
+				</div>
+			</div><!-- /.row -->
+		</div><!-- /.checkout-box -->
+		<!-- ============================================== BRANDS CAROUSEL ============================================== -->
+
+<!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
+</div><!-- /.body-content -->
+<!-- ============================================================= FOOTER ============================================================= -->
+
+    
+</div>
+{% endblock %}

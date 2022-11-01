@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réinitialisez votre mot de passe{% endblock %}
+{% block style %}
+   <style>
+   .email-ms{
+       margin-top: 10px;
+       margin-bottom:10px;
+   }
+   .email{
+      box-shadow: 6px 5px 5px  blue;
+      padding-top: 50px;
+      margin-top:100px;
+      margin-bottom:100px;
+      padding-bottom:50px;
+   }
+   </style>
+
+ {% endblock %}
+{% block body %}
+    {# -------------------------------------------- #}
+                        <div class="body-content">
+                        <div class="container">
+                            <div class="sign-in-page">
+                                <div class="row">
+                                    <!-- Sign-in -->
+                                    <div class="col-md-3 col-sm-12">
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 email">
+                                        <h1>Réinitialisez votre mot de passe</h1>
+                                        <hr>
+                                            {{ form_start(resetForm) }}
+                                             
+                                                   {{ form_row(resetForm.plainPassword) }}
+                                              <div class="form-goup mt-5">
+                                                   <button class="btn btn-primary btn-block mt-5">Réinitialiser le mot de passe</button>
+                                              </div>
+                                                
+                                            {{ form_end(resetForm) }}
+                                    </div>
+                                    <div class="col-md-3 col-sm-12">
+                                    </div>
+                                </div>
+
+
+
+                            </div><!-- /.row -->
+                        </div><!-- /.sigin-in-->
+                            
+                    </div><!-- /.body-content -->
+    {# -------------------------------------------- #}
+{% endblock %}

@@ -1,0 +1,48 @@
+
+       
+                <div class="products best-product">
+                  <div class="product">
+                    <div class="product-micro">
+                      <div class="row product-micro-row">
+                        <div class="col col-xs-5">
+                          <div class="product-image">
+                            {% for image in product1.images %}
+                              {% if loop.first %}
+                                 <div class="image"> <a href="{{ path('product_show', {'id': product.id})}}"> <img src="{{asset('uploads/images/')}}{{ image.url }}" alt="{{ image.url }}"> </a> </div>
+                            <!-- /.image --> 
+                               {% endif %}
+                            {% endfor %}
+                             {% for tag in product.tags %}
+                         
+                                 <div class="tag {{tag.name}}"><span>{{tag.name}}</span><br></div>
+                          
+                              {% endfor %}
+                          </div>
+                          <!-- /.product-image --> 
+                        </div>
+                        <!-- /.col -->
+                        <div class="col2 col-xs-7">
+                          <div class="product-info">
+                            <h3 class="name"><a href="#">{{product1.name}}</a></h3>
+                            <div class="">  
+                                  {{ include('partials/rating.html.twig', {rating : product.getAvgRating})}}
+                  
+                            </div>
+                            <div class="product-price"> <span class="price"> {{product1.price}} &euro; {% if product1.coupon %} {{product1.oldPrice}} &euro; {% endif %}</span> </div>
+                            <!-- /.product-price --> 
+                            
+                          </div>
+                        </div>
+                        <!-- /.col --> 
+                      </div>
+                      <!-- /.product-micro-row --> 
+                    </div>
+                    <!-- /.product-micro --> 
+                    
+                  </div>
+   
+                 
+                    
+                 
+                </div>
+           

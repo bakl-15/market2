@@ -1,0 +1,62 @@
+{% extends 'admin_azul/layout-login.html.twig' %}
+
+{% block title %}Azul-login!{% endblock %}
+
+{% block body %}
+ <div class="account-pages my-5 pt-sm-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6 col-xl-5">
+                        <div class="card overflow-hidden">
+                            <div class="bg-primary bg-soft">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <div class=" p-4">
+                                            <h5 class="text-light text-center">Bienvenue Azul-admin !</h5>
+                                            <p class="text-light text-center">Connectez-vous pour accéder à l'administration.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-5 align-self-end">
+                                        <img src="{{asset('frontend/assets/images/logo.png')}}" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body pt-0"> 
+                                <div class="auth-logo">
+                                 
+                                </div>
+                                <div class="p-2">
+                                    <form class="form-horizontal" action="{{path('admin_azul_login')}}" method="post">
+        
+                                        <div class="mb-3">
+                                            <label for="username" class="form-label">Username</label>
+                                            <input name="_username" type="text" class="form-control" id="username" placeholder="Enter username">
+                                        </div>
+                
+                                        <div class="mb-3">
+                                            <label class="form-label">Password</label>
+                                            <div class="input-group auth-pass-inputgroup">
+                                                <input name="_password" type="password" class="form-control" placeholder="Enter password" aria-label="Password" aria-describedby="password-addon">
+                                                <button class="btn btn-light " type="button" id="password-addon"><i class="far fa-eye"></i></button>
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="mt-3 d-grid">
+                                            <button class="btn btn-primary waves-effect waves-light" type="submit">Log In</button>
+                                        </div>
+            
+                                        
+                                    </form>
+                                </div>
+            
+                            </div>
+                        </div>
+                       
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end account-pages -->
+{% endblock %}

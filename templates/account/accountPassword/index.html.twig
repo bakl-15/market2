@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}	Rcupérer mon mot de passe {% endblock %}
+
+   {% block style %}
+   <style>
+  
+   .email{
+      box-shadow: 6px 5px 5px  blue;
+      padding-top: 50px;
+       padding-bottom: 50px;
+      margin-bottom:50px;
+      margin-top:50px;
+   }
+   </style>
+
+ {% endblock %}
+{% block body %}
+   <div class="breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-inner">
+			<ul class="list-inline list-unstyled">
+				<li><a href="home.html">ACCUEIL</a></li>
+				<li class='active'>MON MOT DE PASSE</li>
+			</ul>
+		</div><!-- /.breadcrumb-inner -->
+	</div><!-- /.container -->
+</div><!-- /.breadcrumb -->
+ 
+       <div class="body-content outer-top-xs" id="top-banner-and-menu">
+           <div class="container">
+                <div class="row">
+		            <div class="col-xs-12 col-sm-12 col-md-3 sidebar">
+                        {% include "./partials/sidebar.html.twig" %}
+                    </div>
+                       <div class="col-xs-12 col-sm-12 col-md-9 ">
+                        <div class="terms-conditions-page">
+                        {% include './partials/flash.html.twig'%}
+                          
+                        
+                           {# ---------------------------------------- #}
+                           <h2> Modifier mon mot de passe</h2>
+                           <hr>
+                             <div class="row">
+                                <div class="col-md-3">
+                                </div>
+                                <div class="col-md-6 email">
+                                     
+                                      {{form_start(form)}}
+                                        
+                                        {{form_row(form.email)}}
+                                        {{form_row(form.old_password)}}
+                                        {{form_row(form.new_password)}}
+                                        <div class="mt-5">
+                                              <button type="submit" class="btn btn-primary btn-block mt-4"> Mettre à jour</button>
+                                   
+                                        </div>
+                                     {{form_end(form)}}
+                                </div>
+                                <div class="col-md-3">
+                                </div>
+                             </div>
+                          
+                           {# ----------------------------------------- #}
+                        </div> <!-- end row -->
+                               <hr>
+                          
+                            
+                           
+                        </div>
+                    </div>
+
+
+
+                          
+        </div>
+          </div>
+          {# ----------------------------------------------------------------------- #}
+
+{% endblock %}
+
+  {% block script %}
+       
+   {% endblock %}

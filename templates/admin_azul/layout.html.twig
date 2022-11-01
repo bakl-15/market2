@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        
+        <meta charset="utf-8" />
+        <title>ADMINISTRATION</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Administration de Azul.fr" name="description" />
+        <meta content="Themesbrand" name="author" />
+        <!-- App favicon -->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="{{asset('frontend/assets/css/font-awesome.css')}}">
+        <!-- Bootstrap Css -->
+        <link href="{{ asset('assets/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <!-- Icons Css -->
+        <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+        <!-- App Css-->
+        <link href="{{asset('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
+
+     
+         {% block style %}
+         {% endblock %}
+    </head>
+
+    <body data-sidebar="blue">
+
+    <!-- <body data-layout="horizontal" data-topbar="dark"> -->
+
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+
+            
+            <header id="page-topbar">
+                <div class="navbar-header">
+                    <div class="d-flex">
+                        <!-- LOGO -->
+                        <div class="navbar-brand-box">
+                           
+
+                            <a href="index.html" class="logo logo-light">
+                                <span class="logo-sm">
+                                    <img src="assets/images/logo-light.svg" alt="" height="22">
+                                </span>
+                                <span class="logo-lg">
+                                    <img src="assets/images/logo-light.png" alt="" height="19">
+                                </span>
+                            </a>
+                        </div>
+
+                        <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
+                            <i class="fa fa-fw fa-bars"></i>
+                        </button>
+
+                        <!-- App Search-->
+                       
+
+                        <div class="dropdown dropdown-mega d-none d-lg-block ms-2">
+                            <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                                <span key="t-megamenu">Mega Menu</span>
+                                <i class="fa fa-chevron-down"></i> 
+                            </button>
+                            <div class="dropdown-menu dropdown-megamenu">
+                                <div class="row">
+                                    <div class="col-sm-8">
+    
+                                        <div class="row">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="row">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+
+                        
+
+                        <div class="dropdown d-none d-lg-inline-block ms-1">
+                            <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">
+                                <i class="bx bx-fullscreen"></i>
+                            </button>
+                        </div>
+
+                        <div class="dropdown d-inline-block">
+                            <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="bx bx-bell bx-tada"></i>
+                                <span class="badge bg-danger rounded-pill">3</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                                aria-labelledby="page-header-notifications-dropdown">
+                                <div class="p-3">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <h6 class="m-0" key="t-notifications"> Notifications </h6>
+                                        </div>
+                                        <div class="col-auto">
+                                            <a href="#!" class="small" key="t-view-all"> Voir tout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-simplebar style="max-height: 230px;">
+                                    <a href="javascript: void(0);" class="text-reset notification-item">
+                                        <div class="d-flex">
+                                            <div class="avatar-xs me-3">
+                                                <span class="avatar-title bg-primary rounded-circle font-size-16">
+                                                    <i class="bx bx-cart"></i>
+                                                </span>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1" key="t-your-order">info</h6>
+                                                <div class="font-size-12 text-muted">
+                                                    <p class="mb-1" key="t-grammer">lorem</p>
+                                                    <p class="mb-0"><i class="fa fa-clock-outline"></i> <span key="t-min-ago">3 min</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="javascript: void(0);" class="text-reset notification-item">
+                                        <div class="d-flex">
+                                            <img src="assets/images/users/avatar-3.jpg"
+                                                class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">James Lemire</h6>
+                                                <div class="font-size-12 text-muted">
+                                                    <p class="mb-1" key="t-simplified">lorem.</p>
+                                                    <p class="mb-0"><i class="fa fa-clock-outline"></i> <span key="t-hours-ago">1 hours</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="javascript: void(0);" class="text-reset notification-item">
+                                        <div class="d-flex">
+                                            <div class="avatar-xs me-3">
+                                                <span class="avatar-title bg-success rounded-circle font-size-16">
+                                                    <i class="bx bx-badge-check"></i>
+                                                </span>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1" key="t-shipped">liste3</h6>
+                                                <div class="font-size-12 text-muted">
+                                                    <p class="mb-1" key="t-grammer">loremr</p>
+                                                    <p class="mb-0"><i class="fa fa-clock-outline"></i> <span key="t-min-ago">3 min </span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <a href="javascript: void(0);" class="text-reset notification-item">
+                                        <div class="d-flex">
+                                            <img src="assets/images/users/avatar-4.jpg"
+                                                class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">info</h6>
+                                                <div class="font-size-12 text-muted">
+                                                    <p class="mb-1" key="t-occidental">Lorem.</p>
+                                                    <p class="mb-0"><i class="fa fa-clock-outline"></i> <span key="t-hours-ago">1 hours</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="p-2 border-top d-grid">
+                                    <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
+                                        <i class="fa fa-arrow-right-circle me-1"></i> <span key="t-view-more">Voir plus...</span> 
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dropdown d-inline-block">
+                            <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              {% if app.user.coverImage %} 
+                                  <img class="rounded-circle header-profile-user" src="{{asset('uploads/avatars' ~ app.user.coverImage)}}"
+                                    alt="Photo de profime {{app.user.fullname}}">                            
+                              {% else %}
+                                   <img class="rounded-circle header-profile-user" src="{{ asset('uploads/images/user/avatar-user.jpg')}}"
+                                    alt="Photo de profime {{app.user.fullname}}">
+                              {% endif %}
+                                
+                                <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{app.user.fullname}}</span>
+                                <i class="fa fa-chevron-down d-none d-xl-inline-block"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <!-- item-->
+                                <a class="dropdown-item" href="{{path('admin_user_show', {'id': app.user.id})}}"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Mon Profil</span></a>
+                                <a class="dropdown-item" href="{{path('home')}}"><i class="bx bx-home font-size-16 align-middle me-1"></i> <span key="t-my-wallet">Le site</span></a>
+                                <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">11</span><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">Settings</span></a>
+                                <a class="dropdown-item" href="#"><i class="bx bx-lock-open font-size-16 align-middle me-1"></i> <span key="t-lock-screen">Lock screen</span></a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-danger" href="{{path('app_logout')}}"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Se déconnecter</span></a>
+                            </div>
+                        </div>
+
+                      
+
+                    </div>
+                </div>
+            </header>
+
+            <!-- ========== Left Sidebar Start ========== -->
+            <div class="vertical-menu">
+
+                <div data-simplebar class="h-100">
+
+                    <!--- Sidemenu -->
+                    <div id="sidebar-menu">
+                        <!-- Left Menu Start -->
+                        <ul class="metismenu list-unstyled" id="side-menu">
+                            <li class="menu-title" key="t-menu">GENERAL</li>
+
+                            <li>
+                                <a href="" class="waves-effect">
+                                    <i class="bx bx-home-circle"></i>
+                                    <span key="t-dashboards">Dashboards</span>
+                                </a>
+                               
+                            </li>
+                            
+                            <li>
+                                <a href="javascript: void(0);" class="waves-effect">
+                                    <i class="bx bx-user"></i>
+                                    <span key="t-layouts">Utilisateurs</span>
+                                </a>
+                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ path('admin_user_index')}}" key="t-default">Listes des administrateurs</a></li>
+                                    <li><a href="{{ path('admin_user_index')}}" key="t-saas">Liste des clients</a></li>
+                                    <li><a href="{{ path('admin_user_new')}}" key="t-crypto">Ajouter un client</a></li>
+                                    <li><a href="#" key="t-blog">Liste des vendeurs</a></li>
+                                    <li><a href="#" key="t-blog">Ajouter un vendeur</a></li>
+                                     <li><a href="#" key="t-blog">Liste des roles</a></li>
+                                    <li><a href="#" key="t-blog">Ajouter un role</a></li>
+                                </ul>
+                               
+                            </li>
+                            <li>
+                                <a href="javascript: void(0);" class="waves-effect">
+                                    <i class="bx bx-aperture"></i>
+                                    <span key="t-layouts">Page d'accueil</span>
+                                </a>
+                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ path('admin_settings_homeSlider_index')}}" key="t-default">Slider-Page d'accueil</a></li>
+                                    <li><a href="{{ path('admin_settings_homeLargeNav_index')}}" key="t-saas">Menu large</a></li>
+                                    <li><a href="{{ path('admin_azul_home_decouver_index')}}" key="t-crypto">Liste à découvrir</a></li>
+                                    <li><a href="{{ path('admin_azul_settings_home_flash_index')}}" key="t-crypto">Produits flash</a></li>
+                                    <li><a href="{{ path('admin_azul_settings_home_association_index')}}" key="t-crypto">Association</a></li>
+                                </ul>
+                               
+                            </li>
+                             <li>
+                                <a href="javascript: void(0);" class="waves-effect">
+                                    <i class="bx bx-detail"></i>
+                                    <span key="t-layouts">Commentaires</span>
+                                </a>
+                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ path('admin_comment_index')}}" key="t-default">Liste des commentaires</a></li>
+                                    <li><a href="{{ path('admin_comment_new')}}" key="t-saas">Ajouter un commentaire</a></li>
+                                </ul>
+                               
+                            </li>
+                               <li>
+                                <a href="javascript: void(0);" class="waves-effect">
+                                    <i class="bx bxs-user-detail"></i>
+                                    <span key="t-layouts">Contacts</span>
+                                </a>
+                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ path('admin_contact_index')}}" key="t-default">Listes des contacts</a></li>
+                                    
+                                </ul>
+                               
+                            </li>
+                               <li>
+                                <a href="javascript: void(0);" class="waves-effect">
+                                    <i class="bx bxs-eraser"></i>
+                                    <span key="t-layouts">Ribon</span>
+                                </a>
+                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ path('admin_azul_ribbon_index')}}" key="t-default">Listes des ribbons</a></li>
+                                    
+                                </ul>
+                               
+                            </li>
+
+
+                            
+                            <li class="menu-title" key="t-apps">CATALOGUE</li>
+                            
+                            <li>
+                                <a href="javascript: void(0);" class="waves-effect">
+                                   <i class="bx bx-tone"></i>
+                                    <span key="t-layouts">Produits</span>
+                                </a>
+                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ path('admin_product_index')}}" key="t-default">Listes de tous les Produits</a></li>
+                                    <li><a href="{{ path('admin_user_new')}}" key="t-saas">Ajouter un produit</a></li>
+                
+                                    <li><a href="dashboard-blog.html" key="t-blog">Produits Ecologiques</a></li>
+                                    <li><a href="dashboard-blog.html" key="t-blog">Produits d'occasion</a></li>
+                                    <li><a href="dashboard-blog.html" key="t-blog">Produits Neufs</a></li>
+                                    <li><a href="{{ path('admin_user_new')}}" key="t-crypto">Produits populaires</a></li>
+                                    <li><a href="dashboard-blog.html" key="t-blog">Meilleurs ventes</a></li>
+                                   
+                                </ul>
+                               
+                            </li>
+                             <li>
+                                <a href="calendar.html" class="waves-effect">
+                                   <i class="bx bx-file"></i>
+                                    <span key="t-calendar">Géstion des images</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript: void(0);" class="waves-effect">
+                                   <i class="bx bx-share-alt"></i>
+                                    <span key="t-layouts">Géstion des catégories</span>
+                                </a>
+                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ path('admin_category_index')}}" key="t-default">Listes des catégories</a></li>
+                                    <li><a href="{{ path('admin_user_new')}}" key="t-saas">Ajouter une catégorie</a></li>
+                
+                                    <li><a href="{{path('admin_category_parent_index')}}" key="t-blog">Liste des catégories parentes</a></li>
+                                    <li><a href="{{path('admin_category_parent_new')}}" key="t-blog">Ajouter une catégorie parente</a></li>
+                                  
+             
+                                </ul>
+                               
+                            </li>
+                              <li>
+                                <a href="javascript: void(0);" class="waves-effect">
+                                    <i class="bx bx-map"></i>
+                                    <span key="t-layouts">Géstion de la livraison</span>
+                                </a>
+                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ path('admin_carrier_index')}}" key="t-default">Liste des transporteurs</a></li>
+                                    <li><a href="{{ path('admin_carrier_new')}}" key="t-saas">Ajouter un transporteur</a></li>
+                
+                                   
+             
+                                </ul>
+                               
+                            </li>
+
+                              <li>
+                                <a href="javascript: void(0);" class="waves-effect">
+                                    <i class="bx bx-briefcase-alt-2"></i>
+                                    <span key="t-layouts">Commandes</span>
+                                </a>
+                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ path('admin_order_index')}}" key="t-default">Liste des commandes</a></li>
+                                    <li><a href="{{ path('admin_order_new')}}" key="t-saas">Ajouter une commandes</a></li>
+                
+                                  
+                                  
+             
+                                </ul>
+                               
+                            </li>
+                             <li>
+                                <a href="javascript: void(0);" class="waves-effect">
+                                    <i class="bx bx-briefcase-alt-2"></i>
+                                    <span key="t-layouts">Marketing</span>
+                                </a>
+                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ path('admin_azul_coupon_index')}}" key="t-default">Liste des coupons</a></li>
+                                </ul>
+                               
+                            </li>
+
+                           
+                           
+
+                           
+
+                        </ul>
+                    </div>
+                    <!-- Sidebar -->
+                </div>
+            </div>
+            <!-- Left Sidebar End -->
+              
+            {% block body %}
+             
+             {% endblock %}
+
+
+                <!-- JAVASCRIPT -->
+        <script src="{{ asset('assets/libs/jquery/jquery.min.js') }} "></script>
+        <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }} "></script>
+        <script src="{{ asset('assets/libs/metismenu/metisMenu.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
+
+      <script src="https://kit.fontawesome.com/8ceb7962d6.js" crossorigin="anonymous"></script>
+        <script src="{{asset('assets/js/app.js')}}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+         
+           
+        
+           <script>
+                                      
+
+                                            $('#add_image').click(function(){
+                                          
+                                                //je recupere le numéro des futurs champs que je vais recupérer
+                                                let index = +$("#counter").val();
+
+                                                // je recupére le prototype des entréé
+                                                const tmpl = $("#product_images").data('prototype').replace(/__name__/g, index)
+
+                                                // j'injecte le code ausein de la div
+                                                $("#product_images").append(tmpl);
+                                                 let index2=  index +1
+                                            
+                                                $("#counter").val(index2)
+                                                handleDeleteButtons()
+                                            })
+                                            function handleDeleteButtons(){
+                                                $('button[data-action="delete"]').click(function(){
+                                                    const target = this.dataset.target
+                                                    $(target).remove();
+                                                })
+                                            }
+                                            function update(){
+                                                const count = +$('#ad_new form-group').length
+                                                $('#counter').val(count)
+                                            }
+                                            update()
+                                            handleDeleteButtons()
+
+                                      //------------------------------------------------------------
+
+                                            window.onload = () => {
+                                                // Géstion des button supprimer
+                                              let links =  document.querySelectorAll("[data-delete]")
+                                           
+                                                for(link of links ){
+                                                   alert(link)
+                                                    link.addEventListener("click", function(e){
+                                                 
+                                                        e.preventDefault()
+                                                        if(confirm('Voulez vous supprimer cette image ?'))
+                                                        //on envoie une requette ajax vers le lien
+                                                        fetch(this.getAttribute("href"),{
+                                                            method: "DELETE",
+                                                            headers: {
+                                                                   "X-Requested-With": "XMLHttpRequest",
+                                                                   "Content-Type": "application/json"
+                                                            },
+                                                            body: JSON.stringify({"_token": this.dataset.token})
+                                                        }).then(
+                                                            response => response.json()
+                                                        ).then(
+                                                            data => {
+                                                                if(data.success){
+                                                                    this.parentElement.remove()
+                                                                }else{
+                                                                    alert(data.error)
+                                                                }
+                                                            }
+                                                        )
+                                                    })
+                                                }
+                                             
+
+                                              }
+                                 
+  
+                            </script>
+                     
+               
+                         <script>
+                $(function(){
+                    $(".select-tag").select2()
+                    
+                })
+              
+               {# ----------------------- #}
+            
+                        let $table = $('#table')
+                         let icons =  {
+                                        paginationSwitchDown: "fas fa-chevron-down" ,
+                                        paginationSwitchUp: "fas fa-chevron-up",
+                                        refresh: "fas fa-sync",
+                                        toggleOff: "fas fa-toggle-off",
+                                        toggleOn: "fas fa-toggle-off",
+                                        columns: "fas fa-columns",
+                                        fullscreen: "fas fa-desktop",
+                                        detailOpen: "fas fa-plus",
+                                        detailClose: "fas fa-clipboard-list",
+                                        export: "fas fa-download",
+                                                    }
+                        $(function() {
+
+                            $table.bootstrapTable('destroy').bootstrapTable({
+                                icons: icons
+                            })
+                            
+                        
+                        })
+
+               {# -------------------------- #}
+                
+ </script>
+  {% block javascript %}
+ {% endblock %}
+    </body>  
+</html>

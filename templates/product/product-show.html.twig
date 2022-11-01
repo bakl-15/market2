@@ -1,0 +1,452 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit-{{ product-name }} {% endblock %}
+ {% block style %}
+    <style>
+	    .rating{
+			color: orange ;
+		}
+	</style>
+ {% endblock %}
+{% block body %}
+<div class="breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <ul class="list-inline list-unstyled">
+        <li><a href="{{path('home')}}">Accueil</a></li>
+        <li class='active'>Détail du produit</li>
+      </ul>
+    </div>
+    <!-- /.breadcrumb-inner --> 
+  </div>
+  <!-- /.container --> 
+</div>
+<!-- /.breadcrumb -->
+<div class="body-content outer-top-xs">
+	<div class='container'>
+		<div class='row single-product'>
+			<div class='col-md-3 sidebar'>
+				<div class="sidebar-module-container">
+	
+  
+    
+    
+    	<!-- ============================================== HOT DEALS ============================================== -->
+<div class="sidebar-widget hot-deals wow fadeInUp outer-top-vs">
+	<h3 class="section-title">Vente flash</h3>
+	<div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-xs">
+	{% for productFlash in productsFlash %}	
+<div class="item">
+					<div class="products">
+						<div class="hot-deal-wrapper">
+							<div class="image">
+							  {% for image in productFlash.product.images %}
+								{% if loop.first %}
+								<img src="{{asset('uploads/images/')}}{{ image.url }}" alt="{{ image.caption }}">  
+								{% endif %}
+                              {% endfor %}
+								
+							</div>
+							<div class="sale-offer-tag"><span>{{productFlash.discount}}%<br>off</span></div>
+							<div class="timing-wrapper">
+								<div class="box-wrapper">
+									<div class="date box">
+										<span class="key">120</span>
+										<span class="value">Days</span>
+									</div>
+								</div>
+				                
+				                <div class="box-wrapper">
+									<div class="hour box">
+										<span class="key">20</span>
+										<span class="value">HRS</span>
+									</div>
+								</div>
+
+				                <div class="box-wrapper">
+									<div class="minutes box">
+										<span class="key">36</span>
+										<span class="value">MINS</span>
+									</div>
+								</div>
+
+				                <div class="box-wrapper hidden-md">
+									<div class="seconds box">
+										<span class="key">60</span>
+										<span class="value">SEC</span>
+									</div>
+								</div>
+							</div>
+						</div><!-- /.hot-deal-wrapper -->
+
+						<div class="product-info text-left m-t-20">
+							<h3 class="name"><a href="detail.html">{{productFlash.product.name}}</a></h3>
+							 <div class="text-center">
+									{{ include('partials/rating.html.twig', {rating : productFlash.product.getAvgRating})}}
+							 </div>
+
+							<div class="product-price">	
+								<span class="price">
+									{{productFlash.product.price}} &euro;
+								</span>
+									
+							    <span class="price-before-discount"> {% if productFlash.product.coupon %} {{productFlash.product.oldPrice}} &euro; {% endif %}</span>					
+							
+							</div><!-- /.product-price -->
+							
+						</div><!-- /.product-info -->
+
+						<div class="cart clearfix animate-effect">
+							<div class="action">
+								 <a class=" cart-btn bg-primary" href="{{ path('cart_add', {'id' : productFlash.product.id })}}">
+								<div class="add-cart-button btn-group">
+									<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
+										<i class="fa fa-shopping-cart"></i>													
+									</button>
+									<button class="btn btn-primary cart-btn" type="button">Ajouter au panier</button>
+															
+								</div>
+								</a>
+							</div><!-- /.action -->
+						</div><!-- /.cart -->
+					</div>	
+	</div>		        
+  {% endfor %}
+    </div><!-- /.sidebar-widget -->
+</div>
+<!-- ============================================== HOT DEALS: END ============================================== -->					
+
+<!-- ============================================== NEWSLETTER ============================================== -->
+<div class="sidebar-widget newsletter wow fadeInUp outer-bottom-small outer-top-vs">
+	<h3 class="section-title">Newsletters</h3>
+	<div class="sidebar-widget-body outer-top-xs">
+		<p>Inscrivez-vous à notre newsletter !</p>
+        <form>
+        	 <div class="form-group">
+			    <label class="sr-only" for="exampleInputEmail1">Adresse Email </label>
+			    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="S'inscrire à notre newsletter">
+			  </div>
+			<button class="btn btn-primary">S'inscrire</button>
+		</form>
+	</div><!-- /.sidebar-widget-body -->
+</div><!-- /.sidebar-widget -->
+<!-- ============================================== NEWSLETTER: END ============================================== -->
+
+
+ 
+
+</div>
+</div><!-- /.sidebar -->
+			<div class='col-md-9'>
+            <div class="detail-block">
+				<div class="row  wow fadeInUp">
+                
+					     <div class="col-xs-12 col-sm-6 col-md-5 gallery-holder">
+    <div class="product-item-holder size-big single-product-gallery small-gallery">
+
+        <div id="owl-single-product">
+		{% for key, image in product.images %}
+            <div class="single-product-gallery-item" id="slide{{key}}">
+                <a data-lightbox="image-1" data-title="Gallery" href="{{ asset('uploads/images/')}}{{image.url}}">
+                    <img class="img-responsive" alt="{{image.caption}}" src="assets/images/blank.gif" data-echo="{{ asset('uploads/images/')}}{{image.url}}" />
+                </a>
+            </div><!-- /.single-product-gallery-item -->
+        {% endfor %}
+        </div><!-- /.single-product-slider -->
+
+
+        <div class="single-product-gallery-thumbs gallery-thumbs">
+
+            <div id="owl-single-product-thumbnails">
+			{% for key, image in product.images %}
+                <div class="item">
+                    <a class="horizontal-thumb active  mr-2" data-target="#owl-single-product" data-slide="{{key}}" href="#slide{{key}}">
+                        <img class="img-responsive" width="85" alt="{{image.caption}}" src="assets/images/blank.gif" data-echo="{{ asset('uploads/images/')}}{{image.url}}" />
+                    </a>
+                </div>
+            {% endfor %}  
+            </div><!-- /#owl-single-product-thumbnails -->
+
+            
+
+        </div><!-- /.gallery-thumbs -->
+
+    </div><!-- /.single-product-gallery -->
+</div><!-- /.gallery-holder -->        			
+					<div class='col-sm-6 col-md-7 product-info-block'>
+						<div class="product-info">
+							<h1 class="name">{{product.name}}</h1>
+							
+							<div class="rating-reviews m-t-20">
+								<div class="row">
+									<div class="col-sm-6">
+									    <h4> Note globale donnée:  </h4>
+										
+									</div>
+									<div class="col-sm-6">
+										<div class="reviews">
+										    {% if product.comments|length == 1 %}
+								     	            <a href="#" class="lnk">( {{ product.comments|length }} Commentaire)</a>
+									
+									        {% else %}
+									               <a href="#" class="lnk">( {{ product.comments|length }} Commentaires)</a>
+									
+									        {% endif %}
+										</div>
+										{{include('partials/rating.html.twig', {rating : product.getAvgRating})}}
+									</div>
+								</div><!-- /.row -->		
+							</div><!-- /.rating-reviews -->
+                             <hr>
+							<div class="stock-container info-container m-t-10">
+								<div class="row">
+									<div class="col-sm-2">
+										<div class="stock-box">
+											<span class="label">Disponibilité:  &ensp;&ensp;</span>
+										</div>	
+									</div>
+									<div class="col-sm-9 ml-4">
+										<div class="stock-box">
+										 
+										       {% if product.quantity >= 1 %}
+										        <strong><span class="text-success"> 
+										         &ensp;&ensp; En stock</span>  </strong>
+											  {% endif %}
+										</div>	
+									</div>
+								</div><!-- /.row -->	
+							</div><!-- /.stock-container -->
+                              <hr>
+							<div class="description-container m-t-20">
+							   {{ product.getAbstractDescription|raw }}
+							</div><!-- /.description-container -->
+
+							<div class="price-container info-container m-t-20">
+								<div class="row">
+									
+
+									<div class="col-sm-6">
+										<div class="price-box">
+											<span class="price">{{product.price|number_format(2)}}&euro;</span>
+											<span class="price-strike">{% if product.coupon %} {{product.oldPrice}} &euro; {% endif %}</span>
+										</div>
+									</div>
+
+									<div class="col-sm-6">
+										<div class="favorite-button m-t-10">
+											<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Wishlist" href="{{path('favorite_add', {'id' : product.id})}}">
+											    <i class="fa fa-heart"></i>
+											</a>
+											<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Add to Compare" href="#">
+											   <i class="fa fa-signal"></i>
+											</a>
+											<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="E-mail" href="{{path('contact')}}">
+											    <i class="fa fa-envelope"></i>
+											</a>
+										</div>
+									</div>
+
+								</div><!-- /.row -->
+							</div><!-- /.price-container -->
+
+							<div class="quantity-container info-container">
+								<div class="row">
+									
+									<div class="col-sm-2">
+										<span class="label">Quantité :</span>
+									</div>
+									
+									<div class="col-sm-2">
+										<div class="cart-quantity">
+											<div class="quant-input">
+								                <input type="number" value="1">
+							              </div>
+							            </div>
+									</div>
+
+									<div class="col-sm-7">
+										<a href="{{ path('cart_add', {'id' : product.id })}}" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> AJOUTER AU PANNIER</a>
+									</div>
+
+									
+								</div><!-- /.row -->
+							</div><!-- /.quantity-container -->
+
+							
+
+							
+
+							
+						</div><!-- /.product-info -->
+					</div><!-- /.col-sm-7 -->
+				</div><!-- /.row -->
+                </div>
+				
+				<div class="product-tabs inner-bottom-xs  wow fadeInUp">
+					<div class="row">
+						<div class="col-sm-3">
+							<ul id="product-tabs" class="nav nav-tabs nav-tab-cell">
+								<li class="active"><a data-toggle="tab" href="#description">DESCRIPTION</a></li>
+								<li><a data-toggle="tab" href="#review">COMMENTAIRE/NOTE</a></li>
+							
+							</ul><!-- /.nav-tabs #product-tabs -->
+						</div>
+						<div class="col-sm-9">
+
+							<div class="tab-content">
+								
+								<div id="description" class="tab-pane in active">
+									<div class="product-tab">
+										<p class="text">{{ product.description|raw}}</p>
+										<hr>
+										 	<p class="text">{{ product.moreInformations|raw}}</p>
+									</div>	
+								</div><!-- /.tab-pane -->
+
+								<div id="review" class="tab-pane">
+									<div class="product-tab">
+                                      {{ include('partials/flash.html.twig')}}
+										<div class="product-add-review">
+											<h4 class="title">Ecrire votre propre commentaire</h4>
+											<div class="review-table">
+												<div class="table-responsive">
+												  {{form_start(form)}}
+												    
+													<table class="table">	
+														<thead>
+															<tr>
+																<th class="cell-label">&nbsp;
+																  Donnez une Note au produit
+																</th>
+																
+															
+															</tr>
+														</thead>	
+														<tbody>
+															<tr>
+																<td class="cell-label">Qualité</td>
+															     <td>{{form_widget(form.qualityRating)}}</td>
+															</tr>
+															<tr>
+																<td class="cell-label">Prix</td>
+																
+																<td>{{form_widget(form.priceRating)}}</td>
+														    </tr>
+														</tbody>
+													</table><!-- /.table .table-bordered -->
+													  
+												</div><!-- /.table-responsive -->
+											</div><!-- /.review-table -->
+											 <div>
+                                                <h5>Votre commentaire</h5>
+											     {{form_widget(form.content)}}
+											 </div>
+											<div class="review-form">
+												<div class="form-container">
+														
+														<div class="action text-right">
+															<button class="btn btn-primary btn-upper" type="submit">VALIDER</button>
+														</div><!-- /.action -->
+                                                       {{form_end(form)}}
+												
+												</div><!-- /.form-container -->
+											</div><!-- /.review-form -->
+
+										</div><!-- /.product-add-review -->										
+										
+							        </div><!-- /.product-tab -->
+								</div><!-- /.tab-pane -->
+
+								
+							
+
+							</div><!-- /.tab-content -->
+							{# ---------------------------------------------------------------------- #}
+							
+							{# ----------------------------------------------------------------------- #}
+						</div><!-- /.col -->
+					</div><!-- /.row -->
+				</div><!-- /.product-tabs -->
+
+				<!-- ============================================== UPSELL PRODUCTS ============================================== -->
+<section class="section featured-product wow fadeInUp">
+	<h3 class="section-title">Produits similaires</h3>
+	<div class="owl-carousel home-owl-carousel upsell-product custom-carousel owl-theme outer-top-xs">
+	    	{% for product in products %}
+			   {% for product in products %}
+                        {{ include('partials/card-featured-product.html.twig', {'product': product})}}
+                {% endfor %}
+			{% endfor %}
+		
+	</div><!-- /.home-owl-carousel -->
+
+	  {# ------------------------------------------------------------------- #}
+	 
+                    <div class="blog-review wow fadeInUp">
+							<hr>
+							<div class="row">
+						     	<div class="col-md-12 mb-5">
+									<h2 class="title-review-comments m-5">
+									  {% if product.comments|length == 1 %}
+								     	{{product.comments|length}} commentaire
+									  {% else %}
+									     {{product.comments|length}} commentaires
+									   {% endif %}
+									</h2>
+								</div>
+							    {% if product.comments|length > 0 %} 
+	                               {% for comment in comments %}
+									<div class="blog-comments-responce outer-top-xs col-md-12">
+										<div class="row m-5 p-5">
+											<div class="col-md-2 col-sm-2 ml-5">
+											  {% if comment.author.coverImage %}
+												<img src="{{asset('uploads/avatars' ~ comment.author.coverImage)}}" alt="Responsive image" class="img-rounded img-responsive">
+										      {% else %}
+											   <img src="{{ asset('uploads/images/user/avatar-user.jpg')}}" alt="Responsive image" class="img-rounded img-responsive">
+										      {% endif %}
+											</div>
+											<div class="col-md-10 col-sm-10 outer-bottom-xs">
+												<div class="blog-sub-comments inner-bottom-xs">
+													<h4><strong>{{comment.author.fullname}}</strong> <i class="fa fa-calendar"></i> <small>({{comment.createdAt|date('d/m/Y') }})</small></h4>
+												     <p>Note:
+													  {{ include('partials/rating.html.twig', {rating : comment.rating } )}}
+													 <p>
+													<i>{{ comment.content|raw }}</i>
+												</div>
+											</div>
+											
+										</div>
+									</div>
+									
+									 {% endfor %}
+		                                <div class="col-md-12 bg-success text-center">
+                                            {% do comments.setPageRange(2) %}
+                                            {{ knp_pagination_render(comments,'partials/pagination.html.twig') }}
+                                      </div>
+									{% else %}
+													<div class="blog-review wow fadeInUp">
+															<div class="row">
+																<div class="col-md-12">
+																	<h3 class="title-review-comments">0 commentaires</h3>
+																</div>
+															</div>
+														</div>
+									{% endif %}
+			   
+
+								</div>
+								</div>
+						</div>	
+
+	  {# ----------------------------------------------------------------------- #}
+	</section><!-- /.section -->
+<!-- ============================================== UPSELL PRODUCTS : END ============================================== -->
+			
+			</div><!-- /.col -->
+			<div class="clearfix"></div>
+			
+		</div><!-- /.row -->
+</div><!-- /.body-content -->
+
+
+{% endblock %}

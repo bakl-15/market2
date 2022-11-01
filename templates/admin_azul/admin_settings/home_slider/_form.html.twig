@@ -1,0 +1,56 @@
+
+  {{ form_start(form) }}
+                      
+                            <div class="form-group">
+                                {{ form_row(form.title) }}
+                            </div>
+                            <div class="row">
+                                  <div class="form-group col-md-6">
+                                    {{ form_row(form.headerRight) }}
+                                </div>
+                                 <div class="col-md-6 form-group">
+                                    
+                                    {{ form_row(form.headerLeft) }}
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                {{ form_row(form.description) }}
+                            </div>
+                              <div class="row">
+                                  <div class="col-md-6 form-group">
+                                    {{ form_row(form.buttonMessage) }}
+                                </div>
+                                 <div class="col-md-6 form-group">
+                                    
+                                    {{ form_row(form.buttonUrl) }}
+                                 </div>
+                             </div>
+                               <div>
+                                    {% if home_slider.image %} 
+                                        <img class="rounded-circle header-profile-user" src="{{asset('uploads/slider/' ~ home_slider.image)}}" alt="Header Avatar">                      
+                                    {% else %}
+                                        <img class="rounded-circle header-profile-user" src="{{ asset('uploads/images/user/avatar-user.jpg')}}" alt="Header Avatar">
+                                    {% endif %}
+                               
+                               </div>
+                               <div class="row">
+                                   
+                                  <div class="col-md-8 form-group">
+                                     {{ form_row(form.image) }}
+                                  </div>
+                                   <div class="col-md-4 form-group mt-5 text-success">
+                                     Taille: (1140 pixels, 470 pixels)
+                                  </div>
+                             </div>
+                               <div class="form-group">
+                                    
+                                    {{ form_row(form.isDisplayed) }}
+                             </div>
+
+                                <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-block"> <i class="fa fa-user-plus" aria-hidden="true"></i> Valider</button>
+                                </div>
+                                
+                               
+                     
+                      {{ form_end(form) }}

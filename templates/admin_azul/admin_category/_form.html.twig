@@ -1,0 +1,30 @@
+{{ form_start(form) }}
+    <div>
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+        {{ form_errors(form.name) }}
+    </div>
+    <div class="mt-5">
+           {{ form_label(form.description) }}
+           {{ form_widget(form.description) }}
+           {{ form_errors(form.description) }}
+    </div>
+    <div class="mt-5">
+           {{ form_label(form.ribbon) }}
+           {{ form_widget(form.ribbon) }}
+           {{ form_errors(form.ribbon) }}
+    </div>
+    <div class="mt-1">
+      {% if app.request.attributes.get('_route') == 'admin_category_edit'  %}
+           <img class="rounded-circle header-profile-user" src="{{asset('uploads/category/' ~ category.image)}}" alt="Header Avatar">
+      {% endif %}   
+            {{ form_label(form.image) }}                                
+            {{ form_widget(form.image) }}
+            {{ form_errors(form.image) }}
+      
+    </div>
+   
+  <div class="form-group mt-1">
+     <button type="submit" class="btn btn-primary btn-block"> <i class="fa fa-user-plus" aria-hidden="true"></i> Valider</button>
+  </div>
+{{ form_end(form) }}

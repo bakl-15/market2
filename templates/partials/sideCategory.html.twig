@@ -1,0 +1,26 @@
+
+              <!-- /.menu-item -->
+
+               <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{categoryParent.icon|raw}}{{categoryParent.name}}</a>
+                <ul class="dropdown-menu mega-menu">
+                  <li class="yamm-content">
+                    <div class="row">
+                {% for category in categoryParent.category %}
+                      <div class="col-xs-12 col-sm-12 col-lg-4">
+                        <ul>
+                          <li><a href="{{ path('product-filter-category',{'id': category.id})}}">{{category.name}}</a></li>
+                        </ul>
+                      </div>
+                 {% endfor %}
+                          {% if categoryParent.image %} 
+                             <div class="dropdown-banner-holder"> <a href="#"><img alt="" src="{{asset('uploads/category/' ~ categoryParent.image)}}" width="200px"/></a> </div>                   
+                           {% else %}
+                             <div class="dropdown-banner-holder"> <a href="#"><img alt="" src="{{asset('uploads/category/' ~ categoryParent.image)}}"/></a> </div>
+                           {% endif %}                                                                                                                        
+                         </div>
+                    <!-- /.row --> 
+                  </li>
+                  <!-- /.yamm-content -->
+                </ul>
+                <!-- /.dropdown-menu -->
+             </li>

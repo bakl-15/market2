@@ -1,0 +1,52 @@
+<div class="col-sm-6 col-md-4 wow fadeInUp">
+                    <div class="products">
+                      <div class="product">
+                        <div class="product-image">
+                        {% for image in product.images %}
+                          {% if loop.first %}
+                           <div class="image"> <a href="{{ path('product_show', {'id': product.id}) }}"><img  src="{{asset('uploads/images/')}}{{ image.url }}" alt="{{ image.caption }}"></a> </div>
+                          <!-- /.image -->
+                          {% endif %}
+                        {% endfor %}
+                       {% for tag in product.tags %}
+                         
+                           <div class="tag {{tag.name}}"><span>{{tag.name}}</span><br></div>
+                          
+                        {% endfor %}
+                          
+                        </div>
+                        <!-- /.product-image -->
+                        
+                        <div class="product-info text-left">
+                          <h3 class="name"><a href="{{ path('product_show', {'id': product.id}) }}">{{product.name}}</a></h3>
+                          <div class="">
+                                {{ include('partials/rating.html.twig', {rating : product.getAvgRating})}}
+                  
+                          </div>
+                          <div class="description"></div>
+                          <div class="product-price"> <span class="price"> {{product.price}} </span> <span class="price-before-discount">{% if product.coupon %} {{product.oldPrice}} &euro; {% endif %}</span> </div>
+                          <!-- /.product-price --> 
+                          
+                        </div>
+                        <!-- /.product-info -->
+                        <div class="cart clearfix animate-effect">
+                          <div class="action">
+                            <ul class="list-unstyled">
+                              <li class="add-cart-button btn-group">
+                                <a class="btn btn-primary icon" href="{{path('cart_add', {'id' : product.id })}}" > <i class="fa fa-shopping-cart"></i> </a>
+                                <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+                              </li>
+                              <li class="lnk wishlist"> <a class="add-to-cart" href="{{path('favorite_add', {'id' : product.id })}}" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                              <li class="lnk"> <a class="add-to-cart" href="{{path('cart_add', {'id' : product.id })}}" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
+                            </ul>
+                          </div>
+                          <!-- /.action --> 
+                        </div>
+                        <!-- /.cart --> 
+                      </div>
+                      <!-- /.product --> 
+                      
+                    </div>
+                    <!-- /.products --> 
+                  </div>
+                  <!-- /.item -->

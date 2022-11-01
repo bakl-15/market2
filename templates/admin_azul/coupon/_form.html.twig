@@ -1,0 +1,44 @@
+
+
+
+{{ form_start(form) }}
+    <div>
+        {{ form_label(form.code) }}
+        {{ form_widget(form.code) }}
+        {{ form_errors(form.code) }}
+    </div>
+    <div>
+        {{ form_label(form.products) }}
+        {{ form_widget(form.products) }}
+        {{ form_errors(form.products) }}
+    </div>
+    <div class="row">
+         <div class="mt-5 col-md-6">
+           {{ form_label(form.type) }}
+           {{ form_widget(form.type) }}
+           {{ form_errors(form.type) }}
+        </div>
+         <div class="mt-5 col-md-6">
+           {{ form_label(form.status) }}
+           {{ form_widget(form.status) }}
+           {{ form_errors(form.status) }}
+        </div>
+    </div>
+      <div class="row">
+         <div class="mt-5 col-md-6">
+           {{ form_label(form.endDate) }}
+           {{ form_widget(form.endDate) }}
+           {{ form_errors(form.endDate) }}
+        </div>
+         <div class="mt-5 col-md-6">
+           {{ form_label(form.discount) }}
+           {{ form_widget(form.discount) }}
+           {{ form_errors(form.discount) }}
+        </div>
+    </div>
+  
+   
+  <div class="form-group mt-1">
+     <button type="submit" class="btn btn-primary btn-block"> <i class="fa fa-user-plus" aria-hidden="true"></i> Valider</button>
+  </div>
+{{ form_end(form) }}

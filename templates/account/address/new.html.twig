@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Address{% endblock %}
+
+{% block body %}
+    
+     {# {{include("./partials/breadcrumb.html.twig", {data: { ele1 :'profile', ele2 : 'Ajouter une addresses'}}) }} #}
+       <div class="body-content outer-top-xs" id="top-banner-and-menu">
+           <div class="container">
+            {{ include('partials/flash.html.twig')}}
+                <div class="row">
+		            <div class="col-xs-12 col-sm-12 col-md-3 sidebar">
+                        {% include "./partials/sidebar.html.twig" %}
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-9">
+                        <div class="terms-conditions-page">
+                           <h3>Ajouter une Adresse</h3>
+                           <hr>
+                            {{ include('account/address/_form.html.twig') }}
+                            <div class="form-group mt-5">
+                                  <a href="{{ path('address_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
+                            </div>
+                            
+                       </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+{% endblock %}

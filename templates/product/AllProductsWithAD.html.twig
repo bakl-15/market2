@@ -1,0 +1,193 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Boutique{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.css" integrity="sha512-MKxcSu/LDtbIYHBNAWUQwfB3iVoG9xeMCm32QV5hZ/9lFaQZJVaXfz9aFa0IZExWzCpm7OWvp9zq9gVip/nLMg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+	    .rating{
+			color: orange ;
+		}
+	</style>
+ {% endblock %}
+{% block body %}
+<div class="breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <ul class="list-inline list-unstyled">
+        <li><a href="#">Accueil</a></li>
+        <li class='active'>Boutique</li>
+      </ul>
+    </div>
+    <!-- /.breadcrumb-inner --> 
+  </div>
+  <!-- /.container --> 
+</div>
+<!-- /.breadcrumb -->
+<div class="body-content outer-top-xs">
+  <div class='container js-filter'>
+    <div class='row'>
+      <div class='col-md-3 sidebar'> 
+        <!-- ================================== TOP NAVIGATION ================================== -->
+        <div class="side-menu animate-dropdown outer-bottom-xs">
+          <div class="head"><i class="icon fa fa-align-justify fa-fw"></i> Categories</div>
+          <nav class="yamm megamenu-horizontal">
+            <ul class="nav">
+
+             {% for categoryParent in categoryParents %}
+               {{ include('partials/sideCategory.html.twig', {'categoryParent': categoryParent})}}
+             {% endfor %}
+              
+             
+              
+            </ul>
+            <!-- /.nav --> 
+          </nav>
+          <!-- /.megamenu-horizontal --> 
+        </div>
+        <!-- /.side-menu --> 
+        <!-- ================================== TOP NAVIGATION : END ================================== -->
+        <div class="sidebar-module-container">
+          <div class="sidebar-filter"> 
+            <!-- ============================================== SIDEBAR CATEGORY ============================================== -->
+            <div class="sidebar-widget wow fadeInUp js-filter-form">
+              <h3 class="section-title">Filtre </h3>
+              
+              <div class="sidebar-widget-body">
+                <div class="accordion">
+               
+                  {{ include('partials/filtre-form.html.twig')}}
+             
+              </div>
+              <!-- /.sidebar-widget-body --> 
+            </div>
+            <!-- /.sidebar-widget --> 
+         </div>
+            <!-- ============================================== PRICE SILDER : END ============================================== --> 
+        
+         
+        
+           
+          </div>
+          <!-- /.sidebar-filter --> 
+        </div>
+        <!-- /.sidebar-module-container --> 
+      </div>
+      <!-- /.sidebar -->
+      <div class='col-md-9'> 
+        <!-- ========================================== SECTION – HERO ========================================= -->
+        
+        <div id="category" class="category-carousel hidden-xs">
+        
+        
+     
+        <div class="clearfix filters-container m-t-10">
+          <div class="row">
+            <div class="col col-sm-6 col-md-8">
+              <div class="filter-tabs">
+                <ul id="filter-tabs" class="nav nav-tabs nav-tab-box nav-tab-fa-icon">
+                  <li class="active"> <a data-toggle="tab" href="#grid-container"><i class="icon fa fa-th-large"></i>Grille</a> </li>
+                  <li><a data-toggle="tab" href="#list-container"><i class="icon fa fa-th-list"></i>Liste</a></li>
+                </ul>
+              </div>
+              <!-- /.filter-tabs --> 
+            </div>
+            <!-- /.col -->
+          
+            <!-- /.col -->
+            <div class="col col-sm-2 col-md-4 text-right">
+              <div>
+               {% do products.setPageRange(2) %}
+                    {{ knp_pagination_render(products,'partials/pagination.html.twig') }}
+                
+              </div>
+              <!-- /.pagination-container --> </div>
+            <!-- /.col --> 
+          </div>
+          <!-- /.row --> 
+        </div>
+        <div class="search-result-container ">
+          <div id="myTabContent" class="tab-content category-list">
+            <div class="tab-pane active " id="grid-container">
+              <div class="category-product">
+                <div class="row">
+                     {% for product in products %}
+                        {{ include('partials/card-product-all.html.twig', {'product': product})}}
+                    {% endfor %}
+                  
+                  
+                </div>
+                <!-- /.row --> 
+              </div>
+              <!-- /.category-product --> 
+              
+            </div>
+            <!-- /.tab-pane -->
+            
+            <div class="tab-pane "  id="list-container">
+              <div class="category-product">
+
+                {# ------------------------ #}
+                   {% for product in products %}
+                        {{ include('partials/card-hor.html.twig', {'product': product})}}
+                    {% endfor %}
+                {# ---------------------- #}
+            
+              </div> 
+          </div> 
+        </div>                        
+          <!-- /.tab-content -->
+          <div class="clearfix filters-container">
+            <div class="text-right">
+                <div class="d-flex justify-content-center">
+               
+                    {% do products.setPageRange(2) %}
+                    {{ knp_pagination_render(products,'partials/pagination.html.twig') }}
+                 </div>
+              <!-- /.pagination-container -->
+               </div>
+            <!-- /.text-right --> 
+            
+          </div>
+          <!-- /.filters-container --> 
+          
+        </div>
+        <!-- /.search-result-container --> 
+        
+      </div>
+      <!-- /.col --> 
+    </div>
+ 
+  
+</div>
+<!-- /.body-content --> 
+   </div> 
+{% endblock %}
+{% block javascript %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.js" integrity="sha512-ZKqmaRVpwWCw7S7mEjC89jDdWRD/oMS0mlfH96mO0u3wrPYoN+lXmqvyptH4P9mY6zkoPTSy5U2SwKVXRY5tYQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <script>
+
+    let slider = document.getElementById('price-slider');
+     let min = document.getElementById('minPrice')
+     let max = document.getElementById('maxPrice')
+    const range = noUiSlider.create(slider, {
+          start: [min.value||0, max.value||800],
+          connect: true,
+          step: 10,
+          range: {
+              'min': 50,
+              'max': 700
+          }
+      });
+     
+      range.on('slide', function(values,handle){
+          if(handle === 0){
+            min.value = Math.round(values[0])
+          }
+           if(handle === 1){
+            max.value = Math.round(values[1])
+          }
+      })
+   </script>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page non trouvée {% endblock %}
+
+{% block body %}
+<div class="body-content outer-top-bd">
+	<div class="container">
+		<div class="x-page inner-bottom-sm">
+			<div class="row">
+				<div class="col-md-12 x-text text-center">
+					<h1>403</h1>
+					<p>Nous sommes désolés, vous n'etes pas autorisé à accéder à la page que vous avez demandée. </p>
+					<form role="form" class="outer-top-vs outer-bottom-xs">
+                        <input placeholder="Search" autocomplete="off">
+                        <button class="  btn-default le-button">Aller</button>
+                    </form>
+					<a href="{{path('home')}}"><i class="fa fa-home"></i> Aller à la page d'accueil</a>
+				</div>
+			</div><!-- /.row -->
+		</div><!-- /.sigin-in-->
+	</div><!-- /.container -->
+</div><!-- /.body-content -->
+<!-- ============================
+
+{% endblock %}

@@ -1,0 +1,176 @@
+
+{% extends 'admin_azul/layout.html.twig' %}
+
+{% block title %}Listes des contacts{% endblock %}
+{% block style %}
+     <!-- DataTables -->
+            <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css">
+         <link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css">
+{% endblock %}
+{% block body %}
+
+ 
+
+
+       
+      {# ************************************************************************************** #}
+
+    
+        <div class="main-content">
+          
+                <div class="page-content">
+                    <div class="container p-2">
+
+                        <!-- start page title -->
+                        <div class="row">
+                         {{ include('partials/flash.html.twig')}}
+                            <div class="col-12">
+                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-sm-0 font-size-18">Liste des contacts</h4>
+
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                            <li class="breadcrumb-item active">Contacts</li>
+                                        </ol>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+        
+                                        <h4 class="card-title">Contacts</h4>
+                                      
+                                        
+                                    <div>
+                                        <table 
+                                               class="table table-bordered dt-responsive table-striped table-nowrap w-100"
+                                              data-toggle="table"
+                                              id="table" 
+                                              data-show-refresh="true"
+											  data-show-toggle="true"
+											  data-show-fullscreen="true"
+											  data-show-columns="true"
+											  data-show-columns-toggle-all="true"
+                                              data-search="true"
+                                              data-filter-control="true" 
+                                              data-pagination="true"
+                                              data-show-columns="true"
+                                              data-click-to-select="true"
+                                              data-show-export="true"
+                                              data-detail-view="true"
+                                              data-page-list="[10, 25, 50, 75, 100]"
+                                              data-page-number="45"
+                                             
+                                               >
+                                         
+                                            <thead>
+                                                    <tr class="bg-primary text-white text-center">
+                                                        <th>#</th>
+                                                        <th data-field="email" data-filter-control="select" data-sortable="true">Nom</th>
+                                                        <th data-field="date" data-filter-control="select" data-sortable="true">email</th>
+                                                        <th data-field="Nom" data-filter-control="select" data-sortable="true">Numéro de telephone </th>
+                                                         <th data-field="subject" data-filter-control="select" data-sortable="true">Sujet </th>
+                                                        <th data-field="validation" data-filter-control="select" data-sortable="true">Message</th>
+                                                        <th data-field="telephone" data-filter-control="select" data-sortable="true">Créé le </th>
+                                                        <th data-field="role" data-filter-control="select" data-sortable="true"> Mise à jour le </th>
+                                                        <th data-field="action">Action</th>
+                                                    </tr>
+                                            
+                                            </thead>
+        
+        
+                                            <tbody>
+                                                      
+                                                {% for contact in contacts %}
+                                              
+                                                    <tr>
+                                                        <td>
+                                                           {{contact.id}}
+                                                        </td>
+                                    
+                                                        <td>{{contact.name|raw}}</td>
+                                                        <td>
+                                                          {{ contact.email }}
+                                                        </td>
+                                                        <td>
+                                                           {{ contact.phone }}
+                                                        </td>
+                                                         <td>
+                                                             {{ contact.subject }}
+                                                         </td>
+                                                         <td>
+                                                             {{ contact.getConcisSlug|raw }}
+                                                         </td>
+                                                       <td>{{ contact.createdAt|date('d/m/Y') }}</td>
+                                                         <td>{{ contact.updatedAt|date('d/m/Y') }}</td>   
+                                                     
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                {% set actionPath = 'admin_contact_' %}
+                                                                {% set actionVars = { id: contact.id } %}
+                                                                {% set action = ['update', 'delete', 'show'] %}
+                                                                {{ include('./partials/_actions.html.twig', { actionPath: actionPath, actionVars: actionVars, action: action, object: contact }) }}
+                                                    
+                                                
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                  {% else %}
+                                                    <tr>
+                                                        <td colspan="12">Aucun résultat</td>
+                                                    </tr>
+                                                  
+                                                 {% endfor %}
+                                                  {# ----------------------- #}
+                                                  
+                                                  {# ------------------------- #}
+                                            </tbody>
+                                        </table>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </div> <!-- end row -->
+        
+                       
+
+                    </div> <!-- container-fluid -->
+                </div>
+            {# ------------------------------------------------- #}
+              
+            </div>
+            <!-- end main content-->
+
+
+
+{% endblock %}
+ {% block javascript %}
+     
+       <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
+        <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/locale/bootstrap-table-fr-FR.min.js"></script>
+        <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
+     <script>
+        $(function(){
+                    $(".bootstrap-table-filter-control-Nom").select2()
+
+                     $(".bootstrap-table-filter-control-email").select2()
+                    $(".bootstrap-table-filter-control-validation").select2()
+                     $(".bootstrap-table-filter-control-telephone").select2()
+                     $(".bootstrap-table-filter-control-role").select2()
+                     $(".bootstrap-table-filter-control-addresse").select2()
+                     $(".bootstrap-table-filter-control-date").select2()
+                       $(".bootstrap-table-filter-control-subject").select2()
+         })
+     </script>
+      
+    
+   {% endblock %}

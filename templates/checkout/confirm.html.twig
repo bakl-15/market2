@@ -1,0 +1,283 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande!{% endblock %}
+{% block scriptStripe %}
+     <script src="https://js.stripe.com/v3/"></script>
+{% endblock scriptStripe %}
+{% block body %}
+<div class="breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-inner">
+			<ul class="list-inline list-unstyled">
+
+				<li><a href="{{path('home')}}">Accueil</a></li>
+            
+				<li> <a  href="">Commande</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="body-content">
+	<div class="container">
+		<div class="checkout-box ">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="panel-group checkout-steps" id="accordion">
+						<!-- checkout-step-01  -->
+<div class="panel panel-default checkout-step-01">
+
+	<!-- panel-heading -->
+		<div class="panel-heading">
+    	<h4 class="unicase-checkout-title">
+	        <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
+	          <span>-</span>VERIFICATION DE l'addresse de livraison
+	        </a>
+	     </h4>
+    </div>
+    <!-- panel-heading -->
+
+	<div id="collapseOne" class="panel-collapse collapse in">
+
+		<!-- panel-body  -->
+	    <div class="panel-body">
+			<div class="row">		
+ 
+				<!-- guest-login -->			
+				<div class="col-md-12 col-sm-12 guest-login">
+                    <ul class="list-group">
+                        <li class="list-group-item" aria-current="true"> L'ADDRESSE DE LA LIVRAISON</li>
+                       
+						         <li class="list-group-item mb-5 mt-5">
+								               {# ----------------------- #}
+                               <div class="list-group">
+                                   
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                      <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1"> 	 {{adress | replace({'[br]' : '<br>'})| replace({'[br]' : '<br>'})| replace({'[strong]' : '<strong>'})|replace({'[/strong]' : '</strong>'})| raw}} </strong></h5>
+                                        <small class="text-muted">Date de la livraison estimée: <i>24/12/2022</i></small>
+                                      </div>
+                                     
+                                      <small class="text-muted">A ce stade , vous pouvez encore créer ou modifier l'adresse de la livraison.</small>
+                                      <a class="btn btn-success float-right" href="{{path('address_edit',{'id' : adress.id})}}"> <i class="far fa-edit"> </i> Editer l'adresse</a>
+                                      <a class="btn btn-success float-right" href="{{path('checkout')}}"><i class="far fa-plus-square"></i> Créer une adresse </a>
+                                       
+                                    </a>
+                                    
+								         
+								  </li>
+						    
+					        </ul>
+                     <ul class="list-group">
+                         <li class="list-group-item" aria-current="true"> Livraison</li>
+                         <li class="list-group-item">
+                             <ul>
+                                 <li>
+                                    <div class="row">
+                                         <div class="col-md-4">
+                                              Métode de livraison
+                                         </div>
+                                         <div class="col-md-8">
+                                             <strong>  {{carrier.name}}  </strong> 
+                                         </div>
+                                    </div>
+                                      <div class="row">
+                                         <div class="col-md-4">
+                                              Déscription
+                                         </div>
+                                         <div class="col-md-8">
+                                                <strong>  {{carrier.description|raw}}  </strong>
+                                         </div>
+                                    </div>
+                                     <div class="row">
+                                         <div class="col-md-4">
+                                              Prix
+                                         </div>
+                                         <div class="col-md-8">
+                                               <strong> {{carrier.price|number_format(2)}} &euro; </strong>
+                                         </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                       <div class="col-md-9">
+                                       </div>
+                                        <div class="col-md-3">
+                                               <a class="btn btn-success float-right" href="{{path('checkout_edit')}}"><i class="far fa-edit"> Modifier</i> </a>
+                                        </div>
+                                    </div>
+                                 </li>
+                             </ul>
+						       
+  ...                          
+						</li>
+                 
+                     </ul>
+					  <ul class="list-group">
+                          <li class="list-group-item" aria-current="true"> COMMENTAIRE</li>
+                          {% if imformation %}
+                               <li class="list-group-item">{{imformation|replace({'[--]' : '<br>'})| raw}}</li>
+                            {% else %}
+                             <div class="mt-5"> vous n'avez pas ajouté un commentaire</div>
+                           {% endif %}
+                      </ul>
+				</div>
+			
+				<!-- already-registered-login -->		
+
+			</div>			
+		</div>
+		<!-- panel-body  -->
+
+	</div><!-- row -->
+</div>
+<!-- checkout-step-01  -->
+					    <!-- checkout-step-02  -->
+					  	
+
+						
+
+			
+			
+					</div><!-- /.checkout-steps -->
+				</div>
+				<div class="col-md-4">
+					<!-- checkout-progress-sidebar -->
+<div class="checkout-progress-sidebar ">
+	<div class="panel-group">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+		    	<h4 class="unicase-checkout-title">progression de paiement</h4>
+		    </div>
+		    <div class="">
+				 <ul class="list-group bg-light">
+                  
+                        <li class="list-group-item active" aria-current="true"> 
+                           <div class="row">
+                                <div class="col-md-8">
+                                   Produits
+                                 </div>
+                                 <div class="col-md-4">
+                                    Total
+                                 </div>
+                           </div>
+                        
+                        </li>
+                         {% for element in cart.products %}
+                         <li class="list-group-item">
+
+                           <div class="row">
+                                <div class="col-md-8">
+                                    {{element.product.name}} x {{element.quantity}}
+                                 </div>
+                                 <div class="col-md-4">
+                                    {{element.subtotal|number_format(2)}}  &euro;
+                                 </div>
+                           </div>
+                         </li>
+                          {% endfor %} 
+                           <li class="list-group-item">
+
+                                <div class="row mt-2">
+                                        <div class="col-md-8">
+                                            Montant en HT
+                                        </div>
+                                        <div class="col-md-4">
+                                                <strong> {{cart.data_cart.amountHT|number_format(2)}}  &euro; </strong>
+                                        </div>
+                                </div>
+                           </li>
+                           <li class="list-group-item">
+                             <div class="row mt-2">
+                                <div class="col-md-8">
+                                    Taxe (TVA 20%)
+                                 </div>
+                                 <div class="col-md-4">
+                                    <strong>  {{cart.data_cart.taxe|number_format(2)}}  &euro; </strong>
+                                 </div>
+                             </div>
+                           </li>
+                            <li class="list-group-item">
+                              <div class="row mt-2">
+                                <div class="col-md-8">
+                                    Montant à payer en TTC
+                                 </div>
+                                 <div class="col-md-4">
+                                    <strong>  {{cart.data_cart.amountTTC|number_format(2)}}  &euro; </strong>
+                                 </div>
+                             </div>
+                           </li><li class="list-group-item">
+                              <div class="row mt-2">
+                                <div class="col-md-8">
+                                    Montant de la livraison
+                                 </div>
+                                 <div class="col-md-4">
+                                    <strong>  {{carrier.price|number_format(2)}}  &euro; </strong>
+                                 </div>
+                             </div>
+                           </li>
+                            </li><li class="list-group-item">
+                              <div class="row mt-2">
+                                <div class="col-md-8">
+                                    Montant à payer
+                                 </div>
+                                 <div class="col-md-4">
+                                    <strong>  {{( cart.data_cart.amountTTC + carrier.price)|number_format(2)}}  &euro; </strong>
+                                 </div>
+                             </div>
+                           </li>
+                         <li class="list-group-item text-center">
+                         
+                                <button type="button" class="btn btn-success  text-center" id="checkout-button" >
+                                     Payer | <strong>{{( cart.data_cart.amountTTC + carrier.price)|number_format(2)}}  &euro; </strong>
+                                </button>
+
+                        
+                              
+                         </li>
+                     </ul>		
+			</div>
+		</div>
+	</div>
+</div> 
+
+</div>
+			</div><!-- /.row -->
+		</div><!-- /.checkout-box -->
+	
+<!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
+</div><!-- /.body-content -->
+
+{% endblock %}
+
+{% block script %}
+ <script type="text/javascript">
+
+   console.log("yesssssssssssssssssssssssssssssssssss")
+        var stripe = Stripe("pk_test_51JyIe0GMvscxMydy1UNcJt7sEGpjR8Ff9W6Mc214G6q4XqfFxbDxrOzYnqdVHcqlZmKDF6lvKlkLTUN3BOjyzjAY00gmbWKuMR");
+    var checkoutButton = document.getElementById("checkout-button");
+
+    checkoutButton.addEventListener("click", function () {
+      fetch("/create-checkout-session/{{ reference }}", {
+        method: "POST",
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (session) {
+          return stripe.redirectToCheckout({ sessionId: session.id });
+        })
+        .then(function (result) {
+          // If redirectToCheckout fails due to a browser or network
+          // error, you should display the localized error message to your
+          // customer using error.message.
+          if (result.error) {
+            alert(result.error.message);
+          }
+        })
+        .catch(function (error) {
+          console.error("Error:", error);
+        });
+    }); 
+    </script>
+{% endblock %}
+

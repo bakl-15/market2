@@ -1,0 +1,324 @@
+<header class="header-style-1"> 
+    {% block style %}
+        <style>
+           .search-new{
+             width : 100%;
+             border : none;
+             height : 100%;
+             margin : 0;
+           }
+           .select2-dropdown.select2-dropdown--below{
+                   width: 148px !important;
+                  }
+
+          .select2-container--default .select2-selection--single{
+              padding:6px;
+              height: 44px;
+              width: 148px; 
+              font-size: 1.2em;  
+              position: relative;
+              margin:0;
+          }
+
+          .select2-container--default .select2-selection--single .select2-selection__arrow {
+              background-image: -khtml-gradient(linear, left top, left bottom, from(#424242), to(#030303));
+              background-image: -moz-linear-gradient(top, #424242, #030303);
+              background-image: -ms-linear-gradient(top, #424242, #030303);
+              background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #424242), color-stop(100%, #030303));
+              background-image: -webkit-linear-gradient(top, #424242, #030303);
+              background-image: -o-linear-gradient(top, #424242, #030303);
+              background-image: linear-gradient(#424242, #030303);
+              width: 40px;
+              color: #fdd922;
+              font-size: 1.3em;
+              padding: 4px 12px;
+                height: 27px;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 40px;
+            height:98%;
+          }
+
+        </style>
+    {% endblock %}
+  <!-- ============================================== TOP MENU ============================================== -->
+  <div class="top-bar animate-dropdown">
+    <div class="container">
+      <div class="header-top-inner">
+        <div class="cnt-account">
+          <ul class="list-unstyled">
+            <li><a href="{{ path('account_profil')}}"><i class="icon fa fa-user"></i>Mon Compte</a></li>
+            <li><a href="{{path('favorite_index')}}"><i class="icon fa fa-heart"></i>Favories</a></li>
+            <li><a href="{{ path('cart_index')}}"><i class="icon fa fa-shopping-cart"></i>Mon Panier</a></li>
+            <li><a href="{{ path('checkout')}}"><i class="icon fa fa-check"></i>Achat immédiat</a></li>
+            
+            {% if app.user %}
+                    <li><a href="{{ path('app_logout')}}">
+                       <img src="" class="avatar avatar-small">
+                     <i class="fas fa-sign-out-alt"></i>  Se déconecter
+                    </a></li>
+
+             {% else %}
+                 <li><a href="{{ path('app_login')}}"><i class="icon fa fa-lock"></i>Connexion</a></li>
+             {% endif %}
+
+            
+
+          </ul>
+        </div>
+        <!-- /.cnt-account -->
+        
+        <div class="cnt-block">
+          <ul class="list-unstyled list-inline">
+            <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">EUR</span><b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">EURO</a></li>
+               
+              </ul>
+            </li>
+           
+          </ul>
+          <!-- /.list-unstyled --> 
+        </div>
+        <!-- /.cnt-cart -->
+        <div class="clearfix"></div>
+      </div>
+      <!-- /.header-top-inner --> 
+    </div>
+    <!-- /.container --> 
+  </div>
+  <!-- /.header-top --> 
+  <!-- ============================================== TOP MENU : END ============================================== -->
+  <div class="main-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-3 logo-holder"> 
+          <!-- ============================================================= LOGO ============================================================= -->
+          <div class="logo "> <a href="{{path('home')}}"> <img src="{{asset('assets/images/logo.png')}}" alt="logo"> </a> </div>
+          <!-- /.logo --> 
+          <!-- ============================================================= LOGO : END ============================================================= --> </div>
+        <!-- /.logo-holder -->
+        
+        <div class="col-xs-12 col-sm-12 col-md-7 top-search-holder"> 
+          <!-- /.contact-row --> 
+          <!-- ============================================================= SEARCH AREA ============================================================= -->
+          <div class="search-area">
+            
+              <div class="control-group">
+                    {{ render(controller(
+                         'App\\Controller\\search\\SearchController::searchBar'
+                      )) }}
+            
+          </div>
+
+
+          
+          <!-- /.search-area --> 
+          <!-- ============================================================= SEARCH AREA : END ============================================================= --> </div>
+        <!-- /.top-search-holder -->
+        
+        <div class="col-xs-12 col-sm-12 col-md-2 animate-dropdown top-cart-row"> 
+          <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
+          
+          <div class="dropdown dropdown-cart"> <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
+            <div class="items-cart-inner">
+              <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
+              <div class="basket-item-count"><span class="count">
+            
+                 {% set el =  app.session.get('cartData') %}
+                  
+                    
+                  {% if el  %}
+                     {{el.data_cart.quantity_cart }}
+                  {% else %}
+                  <span> 0 </span>
+                  {% endif %}
+
+              </span></div>
+              <div class="total-price-basket"> <span class="lbl"> +</span> <span class="total-price"> <span class="value">
+                 {% if el %}
+                       {{el.data_cart.amountTTC }} &euro;
+                  {% else %}
+                   0 &euro;
+                 {% endif %}
+              </span>
+               </span>
+                </div>
+            </div>
+            </a>
+            <ul class="dropdown-menu">
+               
+              <li>
+                <div class="cart-item product-summary">
+                {% if el %}
+                  {% for element in el.products  %}
+             
+                  <div class="row">
+                   <hr>  
+                         <div class="col-xs-4">
+                           
+                               <div class="image">
+                                    <a href="{{ path('product_show', {'id':element.product.id}) }}">
+                                        {% for image in element.images %}
+                                   
+                                           {% if loop.first %}
+                                            <img src="{{ asset('uploads/images/')}}{{ image.url }}" alt="{{image.caption}}"> 
+                                           {% endif %}
+                                        {% endfor %}
+                                    </a>
+                               </div>
+                          </div>
+                    <div class="col-xs-7">
+                      <h3 class="name"><a href="{{ path('product_show', {'id' : element.product.id }) }}">{{element.product.name}}</a></h3>
+                      <div class="price">{{element.product.price|number_format(2)}}  &euro;</div>
+                      
+                    </div>
+                    <div class="col-xs-1 action"> <a href="{{ path('cart_delete_all', {'id': element.product.id })}}"><i class="fa fa-trash"></i></a> </div>
+                    
+                  </div>
+                    
+
+                      {% endfor %}
+                  {% else %}
+                      <div> Votre panier est vide </div>
+                   {% endif %}
+                </div>
+
+                <!-- /.cart-item -->
+             
+                <div class="clearfix"></div>
+                <hr>
+                 {% if el %}
+                <div class="clearfix cart-total">
+             
+                  
+                   <div class="row">
+                       <div class="col-md-6">
+                            sous total:
+                       </div>
+                       <div  class="col-md-6">
+                          <strong> {{el.data_cart.amountHT|number_format(2)}}  &euro; </strong>
+                       </div>
+                        
+                   </div>
+                   <div class="row"> 
+                       <div class="col-md-6">
+                           TVA(20%):
+                       </div>
+                       <div  class="col-md-6">
+                         <strong> {{el.data_cart.taxe|number_format(2)}}  &euro; </strong>
+                       </div>
+                   </div>
+                   <div class="row">
+                       <div class="col-md-6">
+                            Total :
+                       </div>
+                       <div  class="col-md-6">
+                          <strong> {{el.data_cart.amountTTC|number_format(2)}}  &euro; </strong>
+                       </div>
+                    
+                   </div>
+                  
+                 
+                  <div class="clearfix">
+                     <a href="{{ path('checkout_confirm')}}" class="btn btn-upper btn-primary btn-block m-t-20">Finaliser l'achat</a> </div>
+                     <a href="{{ path('cart_index')}}" class="btn btn-upper btn-success btn-block m-t-20 text-light"> Voir mon panier</a> </div>
+                  </div>
+                <!-- /.cart-total--> 
+                {% endif %}
+              </li>
+            </ul>
+            <!-- /.dropdown-menu--> 
+          </div>
+          <!-- /.dropdown-cart --> 
+          
+          <!-- ============================================================= SHOPPING CART DROPDOWN : END============================================================= --> </div>
+        <!-- /.top-cart-row --> 
+      </div>
+      <!-- /.row --> 
+      
+    </div>
+    <!-- /.container --> 
+    
+  </div>
+  <!-- /.main-header --> 
+
+  <!-- ============================================== NAVBAR ============================================== -->
+  <div class="header-nav animate-dropdown">
+    <div class="container">
+      <div class="yamm navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+       <button data-target="#mc-horizontal-menu-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> 
+       <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        </div>
+        <div class="nav-bg-class">
+          <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
+            <div class="nav-outer">
+              <ul class="nav navbar-nav">
+                <li class="dropdown yamm-fw"> <a href="{{ path('home')}}" >ACCUEIL <span class="menu-label hot-menu hidden-xs">hot</span> </a> </li>
+               {% for key,menu in LargeMenu.getLargeMenu %}
+                <li class="dropdown yamm mega-menu"> <a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">{{ menu.name }}{% if menu.ribbon %}<span class="menu-label {{menu.ribbon}}-menu hidden-xs">{{menu.ribbon}}</span> {% endif %} </a>
+                  <ul class="dropdown-menu container">
+                    <li></li>
+                      <div class="yamm-content ">  
+                        <div class="row">
+                        {% for cp in  menu.CatParente %}
+                          <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
+                            <h2 class="title">{{ cp.name }}</h2>
+                                 <ul class="links">
+                                   {% for c in  cp.getCategory %}
+                                      <li><a href="{{ path('product-filter-category',{'id': c.id})}}">{{c.name}}</a></li>
+                                    {% endfor %}
+                                 </ul>
+                          </div>
+                           {% endfor %}
+                           {% if menu.image %}
+                                <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image"> <img class="img-responsive" src="{{asset('uploads/category/' ~ menu.image)}}" alt=""> </div>
+                           {% endif %}
+                        </div>
+                      </div>
+                  </ul>
+                </li>
+                {% endfor %}
+
+                <li class="dropdown"> <a href="{{ path('product-filter-ecolo')}}">Produits local</a> </li>
+                <li class="dropdown"> <a href="{{ path('product')}}"> Notre Boutique</a> </li>
+                <li class="dropdown"> <a href="{{ path('contact')}}">NOUS CONTACTER </a> </li>
+                <li class="dropdown"> <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">plus</a>
+                  <ul class="dropdown-menu pages">
+                    <li>
+                      <div class="yamm-content">
+                        <div class="row">
+                          <div class="col-xs-12 col-menu">
+                            <ul class="links">
+                              <li><a href="home.html">Autre produits</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="dropdown  navbar-right special-menu"> <a href="">offre d'aujourd'hui</a> </li>
+              </ul>
+              <!-- /.navbar-nav -->
+              <div class="clearfix"></div>
+            </div>
+            <!-- /.nav-outer --> 
+          </div>
+          <!-- /.navbar-collapse --> 
+          
+        </div>
+        <!-- /.nav-bg-class --> 
+      </div>
+      <!-- /.navbar-default --> 
+    </div>
+    <!-- /.container-class --> 
+    
+  </div>
+  <!-- /.header-nav --> 
+  <!-- ============================================== NAVBAR : END ============================================== --> 
+  
+</header>
+         

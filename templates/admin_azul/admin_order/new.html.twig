@@ -1,0 +1,43 @@
+{% extends 'admin_azul/layout.html.twig' %}
+
+{% block title %}Créer une nouvelle commande{% endblock %}
+
+{% block body %}
+    <h1>Créer une nouvelle commande</h1>
+   <div class="main-content">
+        
+                <div class="page-content">
+                    <div class="container bg-light p-4">
+                    
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                 <h1 class="text-primary mb-4 text-center">créer la commande </h1>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                      {{ include('admin_azul/admin_order/_form.html.twig') }}
+                                        <div class="mt-5">
+                                            <a href="{{ path('admin_order_index') }}"> Retour à la liste des commandes </a>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                    </div> <!-- container-fluid -->
+                </div>
+                <!-- End Page-content -->
+     
+    {# ************************************** #}
+
+
+  
+    
+{% endblock %}

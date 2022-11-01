@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+ 
+  {{include("./partials/breadcrumb.html.twig", {data: {ele1:'Mon compte'}}) }}
+       <div class="body-content outer-top-xs" id="top-banner-and-menu">
+           <div class="container">
+                <div class="row">
+		            <div class="col-xs-12 col-sm-12 col-md-3 sidebar">
+                        {% include "./partials/sidebar.html.twig" %}
+                    </div>
+                       <div class="col-xs-12 col-sm-12 col-md-9">
+                        <div class="terms-conditions-page">
+                        {% include './partials/flash.html.twig'%}
+                           <h3 class="mb-5"> </h3>
+                              <hr>
+                            
+                               <hr>
+                            <div class="table-responsive">
+                            
+                             </div>
+                            
+                           
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-xs-12 col-sm-12 col-md-9">
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

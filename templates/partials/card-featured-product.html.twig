@@ -1,0 +1,53 @@
+ <div class="item item-carousel">
+              <div class="products">
+                <div class="product">
+                  <div class="product-image">
+                   {% for image in product.images %}
+                     {% if loop.first %}
+                        <div class="image"> <a href="{{ path('product_show', {'id': product.id})}}"><img  src="{{asset('uploads/images/')}}{{ image.url }}" alt="{{ image.caption }}"></a> </div>
+                     {% endif %}
+                   {% endfor %}
+                    {% for tag in product.tags %}
+                         
+                           <div class="tag tag.name"><span>{{tag.name}}</span></div><br>
+                          
+                   {% endfor %}
+                    <!-- /.image -->
+                    
+                  
+                  </div>
+                  <!-- /.product-image -->
+                  
+                  <div class="product-info text-left">
+                    <h3 class="name"><a href="{{ path('product_show', {'id': product.id} )}}">{{product.name}}</a></h3>
+                    <div class="">
+                         {{ include('partials/rating.html.twig', {rating : product.getAvgRating})}}
+                    </div>
+                    <div class="description"></div>
+                    <div class="product-price"> <span class="price"> {{product.price}} &euro; </span> <span class="price-before-discount">
+                    {% if product.coupon %} {{product.oldPrice}} &euro; {% endif %}</span> </div>
+                    <!-- /.product-price --> 
+                    
+                  </div>
+                  <!-- /.product-info -->
+                  <div class="cart clearfix animate-effect">
+                    <div class="action">
+                      <ul class="list-unstyled">
+                        <li class="add-cart-button btn-group">
+                          <a class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </a>
+                          <a class="btn btn-primary cart-btn" type="button">Ajouter au panier</a>
+                        </li>
+                        <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                        <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                      </ul>
+                    </div>
+                    <!-- /.action --> 
+                  </div>
+                  <!-- /.cart --> 
+                </div>
+                <!-- /.product --> 
+                
+              </div>
+              <!-- /.products --> 
+            </div>
+            <!-- /.item -->

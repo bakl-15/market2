@@ -1,0 +1,484 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+ {% block style %}
+    <style>
+	    .rating{
+			color: orange ;
+		}
+     .bg-none{
+        background-color: inherit;
+      }
+	</style>
+ {% endblock %}
+{% block body %}
+   <!-- ============================================== HEADER ============================================== -->
+
+
+<!-- ============================================== HEADER : END ============================================== -->
+<div class="body-content outer-top-xs" id="top-banner-and-menu">
+  <div class="container">
+  
+    <div class="row"> 
+     
+       <div class="col-xs-12 col-sm-12 col-md-12 homebanner-holder"> 
+        <!-- ========================================== SECTION – HERO ========================================= -->
+        
+        <div id="hero">
+          <div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
+            
+            {% for slide in slides %}
+            <div class="item" style="background-image: url({{asset('uploads/slider/')}}{{ slide.image }}); background-size: cover; background-repeat: no-repeat;">
+              <div class="container-fluid">
+                
+                <div class="caption bg-color vertical-center text-left">
+                  <div class="slider-header fadeInDown-1">{{slide.title}}</div>
+                  <div class="big-text fadeInDown-1"> {{slide.HeaderLeft}} <span class="highlight">{{slide.headerRight}}</span> </div>
+                  <div class="excerpt fadeInDown-2 hidden-xs"> <span>{{slide.description}}</span> </div>
+                  <div class="button-holder fadeInDown-3"> <a href="{{slide.buttonUrl}}" class="btn-lg btn btn-uppercase btn-primary shop-now-button">{{slide.buttonMessage}}</a> </div>
+                </div>
+                <!-- /.caption --> 
+              </div>
+              <!-- /.container-fluid --> 
+             </div>
+            <!-- /.item --> 
+            {% endfor %}
+          </div>
+          <!-- /.owl-carousel --> 
+        </div>
+        
+        <!-- ========================================= SECTION – HERO : END ========================================= --> 
+        
+        <!-- ============================================== INFO BOXES ============================================== -->
+        <div class="info-boxes wow fadeInUp">
+          <div class="info-boxes-inner">
+            <div class="row">
+              <div class="col-md-6 col-sm-4 col-lg-4">
+                <div class="info-box">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <h4 class="info-box-heading green">REMBOURSEMENT</h4>
+                    </div>
+                  </div>
+                  <h6 class="text">Garantie de remboursement de 30 jours</h6>
+                </div>
+              </div>
+              <!-- .col -->
+              
+              <div class="hidden-md col-sm-4 col-lg-4">
+                <div class="info-box">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <h4 class="info-box-heading green">LIVRAISON GRATUITE</h4>
+                    </div>
+                  </div>
+                  <h6 class="text">Expédition sur les commandes de plus de 120&euro;</h6>
+                </div>
+              </div>
+              <!-- .col -->
+              
+              <div class="col-md-6 col-sm-4 col-lg-4">
+                <div class="info-box">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <h4 class="info-box-heading green">VENTE SPÉCIALE</h4>
+                    </div>
+                  </div>
+                  <h6 class="text">5&euro; de rabais supplémentaire  </h6>
+                </div>
+              </div>
+              <!-- .col --> 
+            </div>
+            <!-- /.row --> 
+          </div>
+          <!-- /.info-boxes-inner --> 
+          
+        </div>
+        <!-- /.info-boxes --> 
+        <!-- ============================================== INFO BOXES : END ============================================== --> 
+        <!-- ============================================== SCROLL TABS ============================================== --> 
+<div class="row">
+<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+<div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs animated" style="visibility: visible; animation-name: fadeInUp;">
+	<h3 class="section-title">VENTE FLASH</h3>
+<div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss" style="opacity: 1; display: block;">
+	
+		<div class="owl-wrapper-outer">
+    <div class="owl-wrapper" style="width: 1338px; left: 0px; display: block;">
+    {% for productFlash in productsFlash %}
+        <div class="owl-item" style="width: 223px;"><div class="item">
+					<div class="products">
+						<div class="hot-deal-wrapper">
+							<div class="image">
+               {% for image in productFlash.product.images %}
+                    {% if loop.first %}
+                      <img src="{{asset('uploads/images/')}}{{ image.url }}" alt="{{ image.caption }}">  
+                    {% endif %}
+               {% endfor %}
+							
+							</div>
+							<div class="sale-offer-tag"><span>{{productFlash.discount}} %<br>off</span></div>
+							<div class="timing-wrapper">
+								<div class="box-wrapper">
+									<div class="date box">
+										<span class="key">120</span>
+										<span class="value">Jours</span>
+									</div>
+								</div>
+				                
+				        <div class="box-wrapper">
+									<div class="hour box">
+										<span class="key">20</span>
+										<span class="value">HRS</span>
+									</div>
+								</div>
+
+				                <div class="box-wrapper">
+									<div class="minutes box">
+										<span class="key">36</span>
+										<span class="value">MINS</span>
+									</div>
+								</div>
+
+				                <div class="box-wrapper hidden-md">
+									<div class="seconds box">
+										<span class="key">60</span>
+										<span class="value">SEC</span>
+									</div>
+								</div>
+							</div>
+						</div><!-- /.hot-deal-wrapper -->
+
+						<div class="product-info text-left m-t-20">
+							<h3 class="name"><a href="detail.html">{{productFlash.product.name}}</a></h3>
+					    <div class="text-center">
+          	      {{ include('partials/rating.html.twig', {rating : productFlash.product.getAvgRating})}}
+               </div>  
+							<div class="product-price">	
+								<span class="price">
+									{{productFlash.product.price}} &euro;
+								</span>
+									
+							    <span class="price-before-discount">  {% if productFlash.product.coupon %} {{productFlash.product.oldPrice}} &euro; {% endif %}</span>					
+							
+							</div><!-- /.product-price -->
+							
+						</div><!-- /.product-info -->
+
+						<div class="cart clearfix animate-effect">
+							<div class="action">
+		    		 <a class=" cart-btn bg-primary" href="{{ path('cart_add', {'id' : productFlash.product.id })}}">
+								<div class="add-cart-button btn-group">
+									<button href="{{ path('cart_add', {'id' : productFlash.product.id })}}" class="btn btn-primary icon" data-toggle="dropdown" type="button">
+										<i class="fa fa-shopping-cart"></i>													
+									</button>
+									<button class="btn btn-primary cart-btn" type="button">
+                  Ajouter au panier
+                  </button>
+															
+								</div>
+							</a>  	
+							</div><!-- /.action -->
+						</div><!-- /.cart -->
+					</div>	
+        
+				</div>
+        
+      </div>
+       {% endfor %} 
+    </div>
+   
+  </div>		        
+	   														        
+															      
+  <div class="owl-controls clickable"><div class="owl-buttons"><div class="owl-prev"></div><div class="owl-next"></div></div></div></div><!-- /.sidebar-widget -->
+  </div>
+</div>
+          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">       
+        <div id="product-tabs-slider" class="scroll-tabs outer-top-vs wow fadeInUp">
+          <div class="more-info-tab clearfix ">
+            <h3 class="new-product-title pull-left">Nouveaux Produits</h3>
+            <ul class="nav nav-tabs nav-tab-line pull-right" id="new-products-1">
+              <li class="active"><a data-transition-type="backSlide" href="#all" data-toggle="tab">Tout</a></li>
+              <li><a data-transition-type="backSlide" href="#smartphone" data-toggle="tab">S.B Occasion</a></li>
+              <li><a data-transition-type="backSlide" href="#laptop" data-toggle="tab">S.B Neuf</a></li>
+              <li><a data-transition-type="backSlide" href="#apple" data-toggle="tab">Ecologique</a></li>
+            </ul>
+            <!-- /.nav-tabs --> 
+          </div>
+          <div class="tab-content outer-top-xs">
+            <div class="tab-pane in active" id="all">
+              <div class="product-slider">
+                <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="3">
+                
+                    {% for product in productNewArrival %}
+                        {{ include('partials/card-product.html.twig', {'product': product})}}
+                    {% endfor %}
+
+                </div>
+                <!-- /.home-owl-carousel --> 
+              </div>
+              <!-- /.product-slider --> 
+            </div>
+            <!-- /.tab-pane -->
+            
+            <div class="tab-pane" id="smartphone">
+              <div class="product-slider">
+                <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+                 
+                  {# SB . OCCASION #}
+                  
+                    {% for product in productsNewOccasion %}
+                        {{ include('partials/card-product.html.twig', {'product': product})}}
+                    {% endfor %}
+                 
+                 
+                  
+                  
+                 
+                </div>
+                <!-- /.home-owl-carousel --> 
+              </div>
+              <!-- /.product-slider --> 
+            </div>
+            <!-- /.tab-pane -->
+            
+            <div class="tab-pane" id="laptop">
+              <div class="product-slider">
+                <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+                   {# SB .NEUF #}
+                     {% for product in productsNewNeuf %}
+                        {{ include('partials/card-product.html.twig', {'product': product})}}
+                    {% endfor %}
+                
+                </div>
+                <!-- /.home-owl-carousel --> 
+              </div>
+              <!-- /.product-slider --> 
+            </div>
+            <!-- /.tab-pane -->
+            
+            <div class="tab-pane" id="apple">
+              <div class="product-slider">
+                <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
+                       {# SB .Ecologique #}
+                     {% for product in productsNewEcolo %}
+                        {{ include('partials/card-product.html.twig', {'product': product})}}
+                    {% endfor %}
+                </div>
+                <!-- /.home-owl-carousel --> 
+              </div>
+              <!-- /.product-slider --> 
+            </div>
+            <!-- /.tab-pane --> 
+            
+          </div>
+          <!-- /.tab-content --> 
+        </div>
+        </div>
+        </div>
+        <!-- /.scroll-tabs --> 
+        <!-- ============================================== SCROLL TABS : END ============================================== --> 
+        <!-- ============================================== WIDE PRODUCTS ============================================== -->
+        <div class="wide-banners wow fadeInUp outer-bottom-xs">
+          <div class="row">
+            <div class="col-md-6 col-sm-6">
+              <div class="wide-banner cnt-strip">
+                <div class="image"> <img class="img-responsive" src="assets/images/banners/home-banner1.jpg" alt=""> </div>
+              </div>
+              <!-- /.wide-banner --> 
+            </div>
+            <!-- /.col -->
+            <div class="col-md-6 col-sm-6">
+              <div class="wide-banner cnt-strip">
+                <div class="image"> <img class="img-responsive" src="assets/images/banners/home-banner2.jpg" alt=""> </div>
+              </div>
+              <!-- /.wide-banner --> 
+            </div>
+            <!-- /.col --> 
+          </div>
+          <!-- /.row --> 
+        </div>
+        <!-- /.wide-banners --> 
+        
+        <!-- ============================================== WIDE PRODUCTS : END ============================================== --> 
+        <!-- ============================================== FEATURED PRODUCTS ============================================== -->
+        <section class="section featured-product wow fadeInUp">
+          <h3 class="section-title">PRODUITS POPULAIRES</h3>
+          <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">   
+                    {% for product in productIsFeatured %}
+                        {{ include('partials/card-featured-product.html.twig', {'product': product})}}
+                    {% endfor %}
+          </div>
+          <!-- /.home-owl-carousel --> 
+        </section>
+        <!-- /.section --> 
+        <!-- ============================================== FEATURED PRODUCTS : END ============================================== --> 
+        <!-- ============================================== WIDE PRODUCTS ============================================== -->
+        <div class="wide-banners wow fadeInUp outer-bottom-xs">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="wide-banner cnt-strip">
+                <div class="image"> <img class="img-responsive" src="assets/images/banners/home-banner.jpg" alt=""> </div>
+                <div class="strip strip-text">
+                  <div class="strip-inner">
+                    <h2 class="text-center">Nouveau produit<br>
+                      <span class="shopping-needs">Save up to 40% off</span></h2>
+                  </div>
+                </div>
+                <div class="new-label">
+                  <div class="text">NEW</div>
+                </div>
+                <!-- /.new-label --> 
+              </div>
+              <!-- /.wide-banner --> 
+            </div>
+            <!-- /.col --> 
+            
+          </div>
+          <!-- /.row --> 
+        </div>
+        <!-- /.wide-banners --> 
+        <!-- ============================================== WIDE PRODUCTS : END ============================================== --> 
+        <!-- ============================================== BEST SELLER ============================================== -->
+       
+        <div class="best-deal wow fadeInUp outer-bottom-xs">
+          <h3 class="section-title">PRODUIT D'OCCASION</h3>
+          <div class="sidebar-widget-body outer-top-xs">
+            <div class="owl-carousel best-seller custom-carousel owl-theme outer-top-xs">
+               
+                {% for product in productNew %}
+                        {{ include('partials/card-product-new.html.twig', {'product1': product })}}
+                {% endfor %}
+            </div>
+         </div>
+       </div>
+       {# ---------------------------------------------------- #}
+
+         <div class="wide-banners wow fadeInUp outer-bottom-xs">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="wide-banner cnt-strip">
+                <div class="image"> <img class="img-responsive" src="assets/images/banners/home-banner.jpg" alt=""> </div>
+                <div class="strip strip-text">
+                  <div class="strip-inner">
+                    <h2 class="text-center">Nouveau produit<br>
+                      <span class="shopping-needs">Save up to 40% off</span></h2>
+                  </div>
+                </div>
+                <div class="new-label">
+                  <div class="text">NEW</div>
+                </div>
+                <!-- /.new-label --> 
+              </div>
+              <!-- /.wide-banner --> 
+            </div>
+            <!-- /.col --> 
+            
+          </div>
+          <!-- /.row --> 
+        </div>
+       {# ----------------------------------------------------- #}
+         <div class="best-deal wow fadeInUp outer-bottom-xs">
+           <!-- /.sidebar-widget-body --> 
+          <h3 class="section-title">PRODUIT TOUT NEUF</h3>
+          <div class="sidebar-widget-body outer-top-xs">
+            <div class="owl-carousel best-seller custom-carousel owl-theme outer-top-xs">
+               
+                {% for product in productSecondHand %}
+                        {{ include('partials/card-product-new.html.twig', {'product1': product })}}
+                {% endfor %}
+            </div>
+         </div>
+          <!-- /.sidebar-widget-body --> 
+       </div>
+        <!-- /.sidebar-widget --> 
+        <!-- ============================================== BEST SELLER : END ============================================== --> 
+        
+        <!-- ============================================== BLOG SLIDER ============================================== -->
+        <section class="section latest-blog outer-bottom-vs wow fadeInUp">
+          <h3 class="section-title">A DECOUVRIR</h3>
+          <div class="blog-slider-container outer-top-xs">
+            <div class="owl-carousel blog-slider custom-carousel">
+            {% for homeDecover in homeDecovers %}
+              <div class="item">
+                <div class="blog-post">   
+                  <div class="blog-post-image">
+                    <div class="image"> <a href="blog.html"><img src=" {{asset('uploads/category/' ~  homeDecover.image)}}" alt="" width="300px"></a> </div>
+                  </div>
+                  <!-- /.blog-post-image -->
+                  
+                  <div class="blog-post-info text-left">
+                    <h3 class="name"><a href="#">{{homeDecover.title}}</a></h3>
+                    <span class="info">By Jone Doe &nbsp;|&nbsp; {{homeDecover.date|date('d/m/Y')}}</span>
+                    <p class="text"> {{homeDecover.getConcislarge|raw}}</p>
+                    <a href="#" class="lnk btn btn-primary">Lire plus</a> </div>
+                  <!-- /.blog-post-info --> 
+                  
+                </div>
+                <!-- /.blog-post --> 
+              </div>
+              <!-- /.item -->
+              {% endfor %}
+             
+              
+            
+              
+              
+            </div>
+            <!-- /.owl-carousel --> 
+          </div>
+          <!-- /.blog-slider-container --> 
+        </section>
+        <!-- /.section --> 
+        <!-- ============================================== BLOG SLIDER : END ============================================== --> 
+        
+        <!-- ============================================== FEATURED PRODUCTS ============================================== -->
+        <section class="section wow fadeInUp new-arriavls">
+          <h3 class="section-title">  MEILLEURS VENTES</h3>
+           
+          <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
+                {% for product in productBestSeller %}
+                        {{ include('partials/card-featured-product.html.twig', {'product': product})}}
+                {% endfor %}
+          </div>
+          <!-- /.home-owl-carousel --> 
+        </section>
+        <!-- /.section --> 
+        <!-- ============================================== FEATURED PRODUCTS : END ============================================== --> 
+        
+      </div>
+      <!-- /.homebanner-holder --> 
+      <!-- ============================================== CONTENT : END ============================================== --> 
+    </div>
+    <!-- /.row --> 
+    <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+   
+  
+    </div>
+
+<!-- ============================ Association ======================== -->
+      
+<div id="brands-carousel" class="logo-slider wow fadeInUp container">
+<h4> CHOISIR UNE ASSOCIATION</h4> 
+  <div class="logo-slider-inner">
+    <div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
+      
+      <!--/.item-->
+      {% for association in associations %}
+      <div class="item m-t-10"> <a href="#" class="image"> <img class="rounded-circle header-profile-user" src="{{asset('uploads/category/' ~ association.image)}}" alt="{{association.labele}}"> </a> </div>
+      <!--/.item-->
+      {% endfor %}
+
+    </div>
+    <!-- /.owl-carousel #logo-slider --> 
+  </div>
+  <!-- /.logo-slider-inner --> 
+  
+</div>
+<!-- /.logo-slider --> 
+
+<!-- ============================ Association ======================== -->
+
+{% endblock %}
+

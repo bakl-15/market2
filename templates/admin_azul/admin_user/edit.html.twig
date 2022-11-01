@@ -1,0 +1,36 @@
+{% extends 'admin_azul/layout.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+   
+            <div class="main-content">
+
+                <div class="page-content">
+                    <div class="container bg-light p-3">
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                 <h1 class="text-primary text-center">Editer l'utilisateur</h1>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                      {{ include('admin_azul/admin_user/_form.html.twig') }}
+                                        <div class="mt-5">
+                                            <a href="{{ path('admin_user_index') }}"> Retour à la liste des utilisateurs </a>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+
+                    </div> 
+                </div>
+            
+     {% endblock %}

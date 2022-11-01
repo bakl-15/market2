@@ -1,0 +1,205 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}	Mes commandes {% endblock %}
+{% block style %}
+    <style>
+     .rating{
+			color: orange ;
+		}
+       .profile-user{
+         width: 60px;
+         height: 60px;
+         border-radius: 50%;
+         margin-top:rem;
+       }
+       .photo-profil-container{
+         display: flex;
+          margin-top:2rem;
+       }
+       .profil{
+         margin-top:2rem;
+         margin-bottom: 2rem;
+         margin-left: 1rem;
+       }
+       .font-cen{
+         font-size: 25px;
+         text-align:center;
+       }
+    </style>
+{% endblock %}
+{% block body %}
+      <div class="breadcrumb">
+        <div class="container">
+          <div class="breadcrumb-inner">
+            <ul class="list-inline list-unstyled">
+              <li><a href="home.html">ACCUEIL</a></li>
+              <li class='active'>Mon profil</li>
+            </ul>
+          </div><!-- /.breadcrumb-inner -->
+        </div><!-- /.container -->
+      </div><!-- /.breadcrumb -->
+ 
+       <div class="body-content outer-top-xs" id="top-banner-and-menu">
+           <div class="container">
+                <div class="row">
+		            <div class="col-xs-12 col-sm-12 col-md-3 sidebar">
+                        {% include "./partials/sidebar.html.twig" %}
+                    </div>
+                       <div class="col-xs-12 col-sm-12 col-md-9">
+                        <div class="terms-conditions-page">
+                        {% include './partials/flash.html.twig'%}
+                          <div class="row">
+                           {{ include('partials/flash.html.twig')}}
+                              <div class="col-md-12 bg-primary">
+                                   <h3> Mon Profil AZUL </h3>
+                              </div>
+                          </div>
+                               <div class="photo-profil-container"> 
+                                    {% if user.coverImage %} 
+                                      <img class="profile-user" src="{{asset('uploads/avatars' ~ user.coverImage)}}" alt="photo de profil {{ user.fullname}}">                    
+                                         {% else %}
+                                      <img class="profile-user" src="{{ asset('uploads/images/user/avatar-user.jpg')}}" alt="photo de profil {{ user.fullname}}">
+                                    {% endif %}
+                                    <h2 class="profil">{{user.fullname}}</h2>
+                               </div>
+                           
+                            <div class="row">
+                                        <div class="col-md-3">
+                                     <div class="list-group">
+                                    <div href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                                        <h1 class="mb-1 text-center"><i class="fas fa-map-marker-alt"></i></h1>
+                                           <h5 class="text-center"> Mes adresses</h5>
+                                    </div>
+                                   
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="font-cen">{{user.addresses|length}}</h5>
+                                        <p class="text-muted text-center">Adresses </p>
+                                        </div>
+                                       
+                                    </a>
+                               </div>
+                               </div>
+                                   <div class="col-md-3">
+                                     <div class="list-group">
+                                    <div href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                                        <h1 class="mb-1 text-center"><i class="fas fa-comment-dots"></i></h1>
+                                           <h5 class="text-center"> Mes Commentaires</h5>
+                                    </div>
+                                   
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="font-cen">{{user.addresses|length}}</h5>
+                                        <p class="text-muted text-center">Commentaires </p>
+                                        </div>
+                                       
+                                    </a>
+                               </div>
+                               </div>
+                               <div class="col-md-3">
+                                     <div class="list-group">
+                                    <div href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                                        <h1 class="mb-1 text-center"><i class="fas fa-luggage-cart"></i></h1>
+                                         <h5 class="text-center"> Mes commandes</h5>
+                                    </div>
+                                   
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="font-cen">{{user.Favorites|length}}</h5>
+                                        <p class="text-muted text-center">Commandes </p>
+                                        </div>
+                                       
+                                    </a>
+                               </div>
+                               </div>
+                              <div class="col-md-3">
+                                 <div class="list-group">
+                                    <div href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                                        <h1 class="mb-1 text-center"><i class="fas fa-heart"></i></h1>
+                                        <h5 class="text-center"> Mes favories</h5>
+                                    </div>
+                                   
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="font-cen">{{user.Favorites|length}}</h5>
+                                        <p class="text-muted text-center">Produits </p>
+                                        </div>
+                                       
+                                    </a>
+                                   
+                                       
+                                        {# -------------------------------- #}
+                                      
+                                         
+
+                                         {# -------------------------------- #}
+                                 
+                                 
+                                 
+                                    </div>
+                                    </div>
+                            
+                            </div>
+                            
+                               <hr>
+                          
+                             <h2>Liste des Commentaires</h2>
+                           
+                       
+
+
+
+                          
+     
+          {# ----------------------------------------------------------------------- #}
+             <div class="">
+						
+						
+							    {% if user.comments|length > 0 %} 
+	                               {% for comment in user.comments %}
+									<div class="blog-comments-responce outer-top-xs col-md-12">
+										<div class="row m-5 p-5">
+										
+											<div class="col-md-10 col-sm-10 outer-bottom-xs">
+												<div class="blog-sub-comments inner-bottom-xs">
+													<h4><strong>{{comment.product.name}}</strong></h4>
+                          <small><i class="fa fa-calendar"></i> ({{comment.createdAt|date('d/m/Y') }})</small>
+												     <p>Note donnée:
+													  {{ include('partials/rating.html.twig', {rating : comment.rating } )}}
+													 <p>
+													<i>{{ comment.content|raw }}</i>
+												</div>
+											</div>
+												<div class="col-md-2 col-sm-2 ml-5">
+											 
+                            {% for image in comment.product.images %}
+                              {% if loop.first %}
+                                     	<img src="{{asset('uploads/images/')}}{{image.url}}" alt="{{comment.product.name}}" class="img-rounded img-responsive">
+                              {% endif %}
+                            {% endfor %}
+											</div>
+										</div>
+                    
+									</div>
+									
+									 {% endfor %}
+		                               
+									{% else %}
+													<div class="blog-review wow fadeInUp">
+															<div class="row">
+																<div class="col-md-12">
+																	<h3 class="title-review-comments">0 commentaires</h3>
+																</div>
+															</div>
+														</div>
+									{% endif %}
+
+                     </div>
+          </div>
+     </div>
+                    </div> </div> 
+{% endblock %}
+
+  {% block script %}
+       
+   {% endblock %}

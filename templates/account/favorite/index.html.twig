@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}	Mes favories {% endblock %}
+ {% block style %}
+    <style>
+	    .rating{
+			color: orange ;
+		}
+	</style>
+ {% endblock %}
+{% block body %}
+   <div class="breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-inner">
+			<ul class="list-inline list-unstyled">
+				<li><a href="home.html">ACCUEIL</a></li>
+				<li class='active'>MES FAVORIES</li>
+			</ul>
+		</div><!-- /.breadcrumb-inner -->
+	</div><!-- /.container -->
+</div><!-- /.breadcrumb -->
+ 
+       <div class="body-content outer-top-xs" id="top-banner-and-menu">
+           <div class="container">
+                <div class="row">
+		            <div class="col-xs-12 col-sm-12 col-md-3 sidebar">
+                        {% include "./partials/sidebar.html.twig" %}
+                    </div>
+                       <div class="col-xs-12 col-sm-12 col-md-9">
+                        <div class="terms-conditions-page">
+                        {% include './partials/flash.html.twig'%}
+                          <div class="row">
+                              <div class="col-md-12 bg-primary">
+                                   <h3> Mes favories </h3>
+                              </div>
+                          </div>
+
+                              <hr>
+                             
+                  	<div class="row ">
+                                    <div class="shopping-cart">
+                                        <div class="shopping-cart-table ">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                           
+                                            <th class="cart-description item">Image</th>
+                                            <th class="cart-product-name item">Produits</th>
+                                            <th class="cart-product-name item">Prix</th>
+                                             <th class="cart-romove item">Supprimer</th>
+                                        </tr>
+                                    </thead><!-- /thead -->
+                                
+                                    <tbody>
+                                                        
+                                    {% for product in products  %}
+                                
+                                        <tr>
+                                            
+                                            <td class="cart-image">
+                                            {% for image in product.images %}
+                                                {% if loop.first %}  
+                                                        <a class="entry-thumbnail" href="{{ path('product_show', {'id':product.id}) }}">
+                                                            <img src="{{asset('uploads/images/')}}{{ image.url }}" alt="{{ image.caption }}">
+                                                    </a>
+                                                {% endif %}
+                                            {% endfor %}
+                                                
+                                            </td>
+                                            <td class="cart-product-name-info">
+                                                <h4 class='cart-product-description'><a href="{{path('product_show', { 'id' : product.id})}}">{{product.name}}</a></h4>
+                                                <div class="row">
+                                                
+                                                    <div class="col-sm-8">
+                                                        <div class="reviews">
+                                                            {{ include('partials/rating.html.twig', {rating : product.getAvgRating})}}
+                                                            <br>
+                                                            ({{product.comments|length}} commentaires)
+                                                        </div>
+                                                    </div>
+                                                </div><!-- /.row -->
+                                                <div class="cart-product-info">
+                                                    <span class="product-color">Quantité:<span>{{product.quantity}} en stock</span></span>
+                                                </div>
+                                            </td>
+                                        
+                                            <td> <h4 class='cart-product-description text-primary'><strong>{{product.price|number_format(2)}} &euro;</strong></h4></td>
+                                            <td class="romove-item"><a href="{{ path('favorite_remove' , {'id':product.id})}}" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a></td>
+                                        </tr>
+                                        {% else %}
+                                        <tr>
+                                        <td>Votre liste des favories est vide! <br> Veuillez rajouter des produits <a href="{{path('product-filter')}}"> Revenir à la boutique</a></td>
+                                        
+                                        </tr>
+                                    {% endfor %}
+                                        
+                                  
+                                    </tbody><!-- /tbody -->
+                                </table><!-- /table -->
+                                  <div class="d-flex justify-content-center">
+                        
+                                       {% do products.setPageRange(2) %}
+                                       {{ knp_pagination_render(products,'partials/pagination.html.twig') }}
+                            
+                                   </div> 
+                            </div>
+                        </div><!-- /.shopping-cart-table -->			
+			</div><!-- /.shopping-cart -->
+		</div> <!-- /.row -->
+ </div>
+
+
+ </div>
+ </div>
+</div>
+{% endblock %}
+
+  {% block script %}
+       
+   {% endblock %}

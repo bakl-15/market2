@@ -1,0 +1,19 @@
+          
+
+            {{form_start(form)}}
+                <div class="row">
+                    <div class="col-md-3 ">
+                           {{form_widget(form.category, { 'id': 'select-id' })}}
+                    </div>
+                     <div class="col-md-8">
+                        {{form_widget(form.search,{'attr': { 'class' : 'search-new'}} )}}
+                    </div>
+                     <div class="col-md-1">
+                           <button class="search-button" type="submit">
+                          </button></div>
+                    </div>
+               </div> 
+             {{form_end(form)}}
+         
+
+          

@@ -1,0 +1,42 @@
+ <div class="product">
+                    <div class="product-micro">
+                      <div class="row product-micro-row">
+                        <div class="col col-xs-5">
+                          <div class="product-image">
+                          {% for image in product.images %}
+                            {% if loop.first %}
+                            <div class="image"> <a href="{{ path('product-show', {'id': product.id})}}"> <img src="{{asset('uploads/images/')}}{{ image.url }}" alt="{{ image.caption }}"> </a> </div>
+                            <!-- /.image --> 
+                           {% endif %}
+                           {% endfor %} 
+                            {% for tag in product.tags %}
+                         
+                                <div class="tag {{tag.name}}"><span>{{tag.name}}</span><br></div>
+                          
+                            {% endfor %}
+                          </div>
+                          <!-- /.product-image --> 
+                        </div>
+                        <!-- /.col -->
+                        <div class="col2 col-xs-7">
+                          <div class="product-info">
+                            <h3 class="name"><a href="#">{{product.name}}</a></h3>
+                            <div class="">
+                                  {{ include('partials/rating.html.twig', {rating : product.getAvgRating})}}
+                  
+                            </div>
+                            <div class="product-price"> <span class="price"> {{product.price}} &euro;</span> <span class="price-before-discount">
+                             {% if product.coupon %} {{product.oldPrice}} &euro; {% endif %}</span> </div>
+                            <!-- /.product-price --> 
+                            
+                          </div>
+                        </div>
+                        <!-- /.col --> 
+                      </div>
+                      <!-- /.product-micro-row --> 
+                    </div>
+                    <!-- /.product-micro --> 
+                    
+                  </div>
+                </div>
+           

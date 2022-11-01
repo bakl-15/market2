@@ -1,0 +1,138 @@
+
+
+
+{# --------------------------------------- #}
+
+
+
+{% extends 'admin_azul/layout.html.twig' %}
+
+{% block title %} Géstion des flash {% endblock %}
+{% block style %}
+     <!-- DataTables -->
+        <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+
+        <!-- Responsive datatable examples -->
+        <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css') }}" />     
+
+{% endblock %}
+{% block body %}
+    {# ************************************************************************************** #}
+
+    
+        <div class="main-content">
+          
+                <div class="page-content">
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-sm-0 font-size-18">Liste des flashs</h4>
+
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                            <li class="breadcrumb-item active">Flashs</li>
+                                        </ol>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                        {{ include('partials/flash.html.twig')}}
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+        
+                                        <h4 class="card-title">Flashs</h4>
+                                      
+                                          <div class="text-sm-end">
+                                                    <a href="{{ path('admin_azul_settings_home_flash_new') }}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2"><i class="fa fa-plus me-1"></i> Ajouter un flash </a>
+                                         </div>
+
+                                    <div class="table-responsive">
+                                        <table id="datatable" class="table table-bordered dt-responsive table-striped table-nowrap w-100">
+                                            <thead>
+                                                    <tr class="bg-primary text-white text-center">
+                                                       
+                                                    <th>Id</th>
+                                                    <th>Produit</th>
+                                                    <th>Rabais</th>
+                                                    <th>StartedAt</th>
+                                                    <th>EndDate</th>
+                                                    <th>actions</th>
+                                                    </tr>
+                                            
+                                            </thead>
+        
+        
+                                            <tbody>
+                                                           {% for sell_flash in sell_flashes %}
+                                                        <tr>
+                                                            <td>{{ sell_flash.id }}</td>
+                                                            <td>{{ sell_flash.product }}</td>
+                                                            <td>{{ sell_flash.discount }} %</td>
+                                                            <td>{{ sell_flash.startedAt ? sell_flash.startedAt|date('Y-m-d H:i:s') : '' }}</td>
+                                                            <td>{{ sell_flash.endDate ? sell_flash.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                                                        
+                                                        
+                                                            <td class="text-center">
+                                                                <div class="text-center">
+                                                                        {% set actionPath = 'admin_azul_settings_home_flash_' %}
+                                                                        {% set actionVars = { id: sell_flash.id } %}
+                                                                        {% set action = ['update', 'delete'] %}
+                                                                        {{ include('./partials/_actions.html.twig', { actionPath: actionPath, actionVars: actionVars, action: action, object: sell_flash }) }}
+
+                                                               </div>
+                                                            </td>
+                                                        </tr>
+                                                            {% else %}
+                                                                <tr>
+                                                                    <td colspan="5">Vous n'avez pas enregistré des flashs</td>
+                                                                </tr>
+                                                            {% endfor %}   
+                                               
+                                            </tbody>
+                                        </table>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </div> <!-- end row -->
+        
+                       
+
+                    </div> <!-- container-fluid -->
+                </div>
+            {# ------------------------------------------------- #}
+              
+            </div>
+            <!-- end main content-->
+{% endblock %}
+ {% block javascript %}
+       <!-- Required datatable js -->
+        <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+        <!-- Buttons examples -->
+        <script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/jszip/jszip.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/pdfmake/build/pdfmake.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js')}}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js')}}"></script>
+        
+        <!-- Responsive examples -->
+        <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
+
+        <!-- Datatable init js -->
+        <script src="{{ asset('assets/js/pages/datatables.init.js')}}"></script>   
+   {% endblock %}

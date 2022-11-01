@@ -1,0 +1,177 @@
+{% extends 'admin_azul/layout.html.twig' %}
+
+{% block title %}Liste des paniers{% endblock %}
+{% block style %}
+     <!-- DataTables -->
+        <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+
+        <!-- Responsive datatable examples -->
+        <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css') }}" />     
+      <style>
+           .badge-yes{
+               background:#def2d0;
+               color:#245900;
+           }
+           .badge-no{
+               background:#f9f1c8;
+               color:#5e4f00;
+           }
+            .New{
+               background:#ffdcdc;
+               color:#900;
+           }
+            .Pending{
+               background: #d9ecff;
+               color: #004b9a;
+           }
+            .Canceled{
+               background:#e2e3e5;
+               color:#444a4f;
+           }
+            .Shipped{
+               background:#def2d0;
+               color:#245900;
+           }
+            .Ship{
+               background:#def2d0;
+               color:#245900;
+           }
+      </style>
+{% endblock %}
+{% block body %}
+    {# ****************************************************************************************** #}
+ 
+        <div class="main-content">
+          
+                <div class="page-content">
+                    <div class="container">
+                        
+                        <!-- start page title -->
+                        <div class="row">
+                        {{ include('partials/flash.html.twig')}}
+                            <div class="col-12">
+                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-sm-0 font-size-18">Liste des commandes</h4>
+
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                            <li class="breadcrumb-item active">Commandes</li>
+                                        </ol>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+        
+                                        <h4 class="card-title">Commandes</h4>
+                                      
+                                         <div class="text-sm-end">
+                                             <a href="{{ path('admin_order_new') }}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2"><i class="fa fa-plus me-1"></i> Ajouter une commande</a>
+                                         </div>
+
+                                    <div class="table-responsive">
+                                        <table 
+                                        id="datatable" class="table table-bordered dt-responsive  table-nowrap w-100">
+                                            <thead>
+                                           
+                                                 <tr class="bg-primary text-white text-center">
+                                                        <th class="text-center">Id</th>
+                                                     
+                                                        <th class="text-center">Créé le</th>
+                                                        <th class="text-center">Client</th>
+                                                        <th class="text-center">Payée</th>
+                                                        <th class="text-center">Etat</th>
+                                                        <th class="text-center">Quantité</th>
+                                                        <th class="text-center">Montant(TTC)</th>
+                                                        <th class="text-center">Livreur</th>
+                                                       
+                                                        <th class="text-center">actions</th>
+                                                    </tr>
+                                            
+                                            </thead>
+
+                                            <tbody>
+                                                          {% for order in orders %}
+                                                        <tr>
+                                                            <td class="text-center">{{ order.id }}</td>
+                                                        
+                                                            <td class="text-center">{{ order.createdAt ? order.createdAt|date('Y-M-d') : '' }}</td>
+                                                            <td class="text-center">{{ order.fullname }}</td>
+                                                            {% set badge =  order.isPaid ? 'badge-yes' : 'badge-no' %}
+                                                            <td class="text-center"> <div class="p-1 fs-6 rounded-pill {{ badge }}"> {{ order.isPaid ? 'Oui' : 'Non' }} </div></td>
+                                                            {% if order.status == "En cours de préparation" %}
+                                                                <td class="text-center"><div class="p-1 fs-6 rounded-pill Pending">{{ order.status }}</div></td>
+                                                             {% elseif order.status == "Annulé" %}
+                                                                   <td class="text-center"><div class="p-1 fs-6 rounded-pill Canceled">{{ order.status }}</div></td>
+                                                             {% elseif order.status == "Livraison en cours" %}
+                                                                   <td class="text-center"><div class="p-1 fs-6 rounded-pill Shipped">{{ order.status }}</div></td>
+                                                             {% elseif order.status == "Commande livrée" %}
+                                                                   <td class="text-center"><div class="p-1 fs-6 rounded-pill Ship">{{ order.status }}</div></td>
+                                                            {% else %}
+                                                                    <td class="text-center"><div class="p-1 fs-6 rounded-pill Pending">{{ order.status }}</div></td>
+                                                           
+                                                            {% endif %}
+                                                             <td class="text-center">{{ order.quantity }}</td>
+                                                            <td class="text-center">{{ order.subTotalTTC }} &euro;</td>
+                                                            <td class="text-center">{{ order.carrierName }}</td>
+                                                      
+                                                             <td class="text-center">
+                                                                        {% set actionPath = 'admin_order_' %}
+                                                                        {% set actionVars = { id: order.id } %}
+                                                                        {% set action = ['update', 'delete', 'show'] %}
+                                                                        {{ include('./partials/_actions.html.twig', { actionPath: actionPath, actionVars: actionVars, action: action, object: order }) }}
+
+                                                            </td>
+                                                        </tr>
+                                                  {% else %}
+                                                    <tr>
+                                                        <td colspan="12"> 0 Commandes enregistée </td>
+                                                    </tr>
+                                                  
+                                                 {% endfor %}
+                                            </tbody>
+                                        </table>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </div> <!-- end row -->
+        
+                       
+
+                    </div> <!-- container-fluid -->
+                </div>
+            {# ------------------------------------------------- #}
+              
+            </div>
+            <!-- end main content-->
+{% endblock %}
+{% block javascript %}
+       <!-- Required datatable js -->
+        <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+        <!-- Buttons examples -->
+        <script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/jszip/jszip.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/pdfmake/build/pdfmake.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js')}}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js')}}"></script>
+        
+        <!-- Responsive examples -->
+        <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
+
+        <!-- Datatable init js -->
+        <script src="{{ asset('assets/js/pages/datatables.init.js')}}"></script>   
+   {% endblock %}
